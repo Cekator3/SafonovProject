@@ -36,6 +36,7 @@ return new class extends Migration
         });
 
         Schema::create('model_feedback_photos', function (Blueprint $table) {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('feedback_id');
             $table->text('photo');
 

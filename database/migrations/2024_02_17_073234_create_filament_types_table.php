@@ -26,6 +26,7 @@ return new class extends Migration
 
         Schema::create('printing_technologies_of_filament_type', function (Blueprint $table)
         {
+            $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->smallInteger('filament_type_id');
             $table->smallInteger('printing_technology_id');
 

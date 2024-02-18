@@ -21,10 +21,11 @@ return new class extends Migration
 
         Schema::create('printing_technologies_of_postprocessing_additional_service', function (Blueprint $table)
         {
-            $table->smallInteger('printing_technology_id');
+            $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->smallInteger('additional_service_id');
+            $table->smallInteger('printing_technology_id');
 
-            $table->unique(['printing_technology_id', 'additional_service_id'], 'unique_printing_technologies_of_postprocessing_additional_service');
+            $table->unique(['additional_service_id', 'printing_technology_id'], 'unique_printing_technologies_of_postprocessing_additional_service');
             $table->foreign('additional_service_id')
                   ->references('id')->on('additional_services')
                   ->onDelete('cascade');

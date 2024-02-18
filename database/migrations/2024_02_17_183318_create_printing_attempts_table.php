@@ -29,7 +29,8 @@ return new class extends Migration
         });
 
         Schema::create('printing_attempt_models', function (Blueprint $table) {
-            $table->integer('printing_attempt_id');
+            $table->bigInteger('id')->generatedAs()->always()->primary();
+            $table->bigInteger('printing_attempt_id');
             $table->integer('ordered_model_id');
             $table->boolean('is_printed_successfully')->nullable();
 
@@ -43,7 +44,8 @@ return new class extends Migration
         });
 
         Schema::create('printing_attempt_filaments', function (Blueprint $table) {
-            $table->integer('printing_attempt_id');
+            $table->bigInteger('id')->generatedAs()->always()->primary();
+            $table->bigInteger('printing_attempt_id');
             $table->integer('filament_id');
 
             $table->unique(['printing_attempt_id', 'filament_id']);

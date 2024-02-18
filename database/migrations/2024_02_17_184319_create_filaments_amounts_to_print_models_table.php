@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('filaments_amounts_to_print_models', function (Blueprint $table) {
+            $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->smallInteger('filament_type_id');
             $table->bigInteger('prepared_model_id');
             $table->integer('amount');

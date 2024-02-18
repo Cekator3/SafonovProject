@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('additional_services_of_ordered_model', function (Blueprint $table) {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('ordered_model_id');
             $table->integer('additional_service_id');
             $table->integer('user_id');

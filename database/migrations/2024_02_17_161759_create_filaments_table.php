@@ -35,6 +35,7 @@ return new class extends Migration
 
         Schema::create('filament_printing_characteristics', function (Blueprint $table) 
         {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('printing_characteristic_id');
             $table->integer('filament_id');
             $table->integer('value');

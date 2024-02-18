@@ -25,6 +25,7 @@ return new class extends Migration
 
         Schema::create('printer_printing_characteristics', function (Blueprint $table) 
         {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('printer_id');
             $table->integer('printing_characteristic_id');
             $table->integer('value');
@@ -41,6 +42,7 @@ return new class extends Migration
 
         Schema::create('printer_printing_technologies', function (Blueprint $table) 
         {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('printer_id');
             $table->integer('printing_technology_id');
 

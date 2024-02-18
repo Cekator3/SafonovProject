@@ -52,6 +52,7 @@ return new class extends Migration
         });
 
         Schema::create('customer_acquired_models', function (Blueprint $table) {
+            $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('customer_id');
             $table->integer('base_model_id');
 

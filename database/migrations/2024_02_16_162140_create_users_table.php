@@ -25,7 +25,7 @@ return new class extends Migration
 
         Schema::create('customers', function (Blueprint $table)
         {
-            $table->integer('user_id')->unique();
+            $table->integer('user_id')->primary();
             $table->text('profile_picture');
             $table->text('email')->unique();
             $table->text('name');
