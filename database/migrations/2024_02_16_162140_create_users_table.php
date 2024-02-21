@@ -17,24 +17,14 @@ return new class extends Migration
             $table->text('login');
             $table->enum('role', ['customer', 'print_master', 'admin', 'superuser']);
             $table->text('password');
-            $table->text('phone_number')->nullable();
-
-            $table->unique(['login', 'role']);
-            $table->comment('A user of the application.');
-        });
-
-        Schema::create('customers', function (Blueprint $table)
-        {
-            $table->integer('user_id')->primary();
-            $table->text('profile_picture');
-            $table->text('email')->unique();
-            $table->text('name');
+            $table->text('phone_number')->nullable()->unique();
+            $table->text('email')->nullable()->unique();
+            $table->text('profile_picture')->nullable();
+            $table->text('name')->nullable();
             $table->text('surname')->nullable();
             $table->text('patronymic')->nullable();
 
-            $table->foreign('user_id', 'customer_user_id_foreign')
-                  ->references('id')->on('users')
-                  ->onDelete('cascade');
+            $table->unique(['login', 'role']);
         });
     }
 
@@ -44,6 +34,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('customers');
     }
 };
