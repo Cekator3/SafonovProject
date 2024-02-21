@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('calls_to_customer_history', function (Blueprint $table) {
+        Schema::create('calls_to_customer_history', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('order_id');
             $table->integer('customer_id');

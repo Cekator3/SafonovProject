@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printer_distributing_models', function (Blueprint $table) {
+        Schema::create('printer_distributing_models', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('user_id');
             $table->integer('ordered_model_id');

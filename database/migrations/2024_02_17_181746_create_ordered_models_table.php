@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\OrderedModelCompletionStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,17 +13,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ordered_models', function (Blueprint $table) {
-            $completion_statuses = [
-                'needs_admin_checking',
-                'on_admin_checking',
-                'needs_to_be_printed',
-                'is_in_printer_queue',
-                'is_being_printed',
-                'is_on_post_processing',
-                'is_on_admin_final_check',
-                'completed'
-            ];
-
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('order_id');
             $table->text('customer_special_wishes');
@@ -36,7 +26,7 @@ return new class extends Migration
             $table->smallInteger('filament_type_id');
             $table->smallInteger('color_id');
 
-            $table->enum('completion_status', $completion_statuses);
+            $table->enum('completion_status', OrderedModelCompletionStatus::GetAllValues());
 
             $table->foreign('order_id')
                   ->references('id')->on('orders')

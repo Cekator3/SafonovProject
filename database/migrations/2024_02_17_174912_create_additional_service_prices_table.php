@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('additional_service_prices', function (Blueprint $table) {
+        Schema::create('additional_service_prices', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->smallInteger('additional_service_id');
             $table->integer('base_model_id');

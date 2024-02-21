@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\OrderStatus;
+use App\Enums\OrderDeliveryMethod;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -11,25 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $order_status = [
-                'needs_checking',
-                'on_checking',
-                'waiting_for_payment',
-                'on_execution',
-                'on_delivery'
-            ];
-
-            $order_delivery_method = [
-                'self_delivery',
-                'courier_delivery',
-                'sdek',
-                'russian_post'
-            ];
-
+        Schema::create('orders', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('customer_id')->unique();
-            $table->enum('status', $order_status);
+            $table->enum('status', OrderStatus::GetAllValues());
             $table->timestamp('payed_at');
 
             $table->text('receiver_phone_number');
@@ -38,7 +26,7 @@ return new class extends Migration
             $table->text('receiver_surname')->nullable();
             $table->text('receiver_patronymic')->nullable();
 
-            $table->enum('delivery_method', $order_delivery_method);
+            $table->enum('delivery_method', OrderDeliveryMethod::GetAllValues());
             $table->text('delivery_address_city')->nullable();
             $table->text('delivery_address_street')->nullable();
             $table->text('delivery_address_building_number')->nullable();
@@ -51,7 +39,8 @@ return new class extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::create('customer_acquired_models', function (Blueprint $table) {
+        Schema::create('customer_acquired_models', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('customer_id');
             $table->integer('base_model_id');

@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('colors', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) 
+        {
             $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->text('name')->unique();
             $table->text('code')->unique();
         });
 
-        Schema::create('filaments', function (Blueprint $table) {
+        Schema::create('filaments', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->text('name')->unique();
             $table->smallInteger('filament_type_id');

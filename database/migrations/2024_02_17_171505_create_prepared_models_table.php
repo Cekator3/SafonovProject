@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prepared_models', function (Blueprint $table) {
+        Schema::create('prepared_models', function (Blueprint $table) 
+        {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->bigInteger('unprepared_model_id')->unique();
             $table->text('preview_image');

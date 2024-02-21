@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PrintingCompletionStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,16 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('printing_attempts', function (Blueprint $table) {
-            $completion_statuses = [
-                'printing_in_progress',
-                'printing_finished',
-                'models_post_processing_awaiting'
-            ];
-
+        Schema::create('printing_attempts', function (Blueprint $table) 
+        {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->integer('printer_id');
-            $table->enum('status', $completion_statuses);
+            $table->enum('status', PrintingCompletionStatus::GetAllValues());
             $table->timestamp('finished_at')->nullable();
 
             $table->foreign('printer_id')
@@ -28,7 +24,8 @@ return new class extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::create('printing_attempt_models', function (Blueprint $table) {
+        Schema::create('printing_attempt_models', function (Blueprint $table) 
+        {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->bigInteger('printing_attempt_id');
             $table->integer('ordered_model_id');
@@ -43,7 +40,8 @@ return new class extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::create('printing_attempt_filaments', function (Blueprint $table) {
+        Schema::create('printing_attempt_filaments', function (Blueprint $table) 
+        {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->bigInteger('printing_attempt_id');
             $table->integer('filament_id');

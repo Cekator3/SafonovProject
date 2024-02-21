@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ModelMistakeType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('model_mistakes', function (Blueprint $table) {
+        Schema::create('model_mistakes', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('user_id')->nullable();
             $table->text('image');
             $table->text('description');
-            $table->enum('type', ['base_model_mistake', 'normal_unprepared_model_mistake', 'composite_unprepared_model_mistake', 'prepared_model_mistake', 'unknown_mistake']);
+            $table->enum('type', ModelMistakeType::GetAllValues());
             $table->timestampTz('created_at');
             $table->integer('base_model_id');
             $table->integer('unprepared_model_id')->nullable();

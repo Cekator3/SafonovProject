@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('print_model_prices', function (Blueprint $table) {
+        Schema::create('print_model_prices', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('base_model_id');
             $table->smallInteger('printing_technology_id');

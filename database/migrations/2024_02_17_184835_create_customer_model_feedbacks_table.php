@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_model_feedbacks', function (Blueprint $table) {
+        Schema::create('customer_model_feedbacks', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('user_id');
             $table->integer('base_model_id');
@@ -23,7 +24,8 @@ return new class extends Migration
             $table->text('content');
         });
 
-        Schema::table('customer_model_feedbacks', function (Blueprint $table) {
+        Schema::table('customer_model_feedbacks', function (Blueprint $table) 
+        {
             $table->foreign('base_model_id')
                   ->references('id')->on('base_models')
                   ->onDelete('cascade');
@@ -35,7 +37,8 @@ return new class extends Migration
                   ->onDelete('cascade');
         });
 
-        Schema::create('model_feedback_photos', function (Blueprint $table) {
+        Schema::create('model_feedback_photos', function (Blueprint $table) 
+        {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->integer('feedback_id');
             $table->text('photo');

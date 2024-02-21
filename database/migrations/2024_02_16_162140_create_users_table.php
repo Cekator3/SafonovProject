@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
         {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->text('login');
-            $table->enum('role', ['customer', 'print_master', 'admin', 'superuser']);
+            $table->enum('role', UserRole::GetAllValues());
             $table->text('password');
             $table->text('phone_number')->nullable()->unique();
             $table->text('email')->nullable()->unique();

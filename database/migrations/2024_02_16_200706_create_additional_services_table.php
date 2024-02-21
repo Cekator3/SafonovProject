@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AdditionalServiceType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,10 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('additional_services', function (Blueprint $table) {
+        Schema::create('additional_services', function (Blueprint $table) 
+        {
             $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->text('name')->unique();
-            $table->enum('additional_service_type', ['preprocessing', 'postprocessing']);
+            $table->enum('additional_service_type', AdditionalServiceType::GetAllValues());
             $table->text('preview_image');
             $table->text('description');
         });

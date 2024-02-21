@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PrintingCharacteristicType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -37,8 +38,8 @@ return new class extends Migration
             $table->text('description');
 
             $table->foreign('printing_technology_id')
-                ->references('id')->on('printing_technologies')
-                ->onDelete('cascade');
+                  ->references('id')->on('printing_technologies')
+                  ->onDelete('cascade');
         });
 
         Schema::create('printing_characteristics', function (Blueprint $table)
@@ -46,7 +47,7 @@ return new class extends Migration
             $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->smallInteger('printing_technology_id');
             $table->text('name');
-            $table->enum('printing_characteristic_type', ['boolean', 'number']);
+            $table->enum('printing_characteristic_type', PrintingCharacteristicType::GetAllValues());
 
             $table->unique(['printing_technology_id', 'name']);
             $table->foreign('printing_technology_id')

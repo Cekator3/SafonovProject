@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('filament_types', function (Blueprint $table) {
+        Schema::create('filament_types', function (Blueprint $table) 
+        {
             $table->smallInteger('id')->generatedAs()->always()->primary();
             $table->text('name')->unique();
             $table->text('description');
