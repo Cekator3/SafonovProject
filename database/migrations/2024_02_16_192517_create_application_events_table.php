@@ -15,7 +15,7 @@ return new class extends Migration
         {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->integer('user_id')->nullable();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->useCurrent();
             $table->text('type');
             $table->text('description');
 
