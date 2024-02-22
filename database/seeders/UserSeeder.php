@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        static::insertUser(1000000, UserRole::Customer, 'customer');
+        static::insertUser(1000, UserRole::Customer, 'customer');
         static::insertUser(500, UserRole::PrintMaster, 'print_master');
         static::insertUser(500, UserRole::Admin, 'admin');
         static::insertUser(1, UserRole::Superuser, 'superuser');

@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table)
         {
             $table->integer('id')->generatedAs()->always()->primary();
+            $table->rememberToken();
             $table->text('login');
             $table->enum('role', UserRole::GetAllValues());
             $table->text('password');
