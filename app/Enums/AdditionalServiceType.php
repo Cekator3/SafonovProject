@@ -7,7 +7,7 @@ enum AdditionalServiceType : string
     case postprocessing = 'postprocessing';
 
     /**
-     * Returns values associated with AdditioncalServiceType enum.
+     * Returns values associated with AdditionalServiceType enum.
      * 
      * @return array<string>
     */
