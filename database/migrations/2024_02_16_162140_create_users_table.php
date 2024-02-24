@@ -16,7 +16,7 @@ return new class extends Migration
         {
             $table->integer('id')->generatedAs()->always()->primary();
             $table->rememberToken();
-            $table->text('login');
+            $table->text('login')->unique();
             $table->enum('role', UserRole::GetAllValues());
             $table->text('password');
             $table->text('phone_number')->nullable()->unique();
@@ -25,8 +25,6 @@ return new class extends Migration
             $table->text('name')->nullable();
             $table->text('surname')->nullable();
             $table->text('patronymic')->nullable();
-
-            $table->unique(['login', 'role']);
         });
     }
 
