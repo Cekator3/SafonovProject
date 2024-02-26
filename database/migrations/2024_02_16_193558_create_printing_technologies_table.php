@@ -20,28 +20,6 @@ return new class extends Migration
             $table->text('description');
         });
 
-        Schema::create('printing_technology_advantages', function (Blueprint $table)
-        {
-            $table->smallInteger('id')->generatedAs()->always()->primary();
-            $table->smallInteger('printing_technology_id')->unique();
-            $table->text('description');
-
-            $table->foreign('printing_technology_id')
-                  ->references('id')->on('printing_technologies')
-                  ->onDelete('cascade');
-        });
-
-        Schema::create('printing_technology_disadvantages', function (Blueprint $table)
-        {
-            $table->smallInteger('id')->generatedAs()->always()->primary();
-            $table->smallInteger('printing_technology_id')->unique();
-            $table->text('description');
-
-            $table->foreign('printing_technology_id')
-                  ->references('id')->on('printing_technologies')
-                  ->onDelete('cascade');
-        });
-
         Schema::create('printing_characteristics', function (Blueprint $table)
         {
             $table->smallInteger('id')->generatedAs()->always()->primary();
@@ -62,8 +40,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('printing_technologies');
-        Schema::dropIfExists('printing_technology_advantages');
-        Schema::dropIfExists('printing_technology_disadvantages');
         Schema::dropIfExists('printing_characteristics');
     }
 };
