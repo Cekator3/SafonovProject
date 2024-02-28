@@ -14,14 +14,19 @@ return new class extends Migration
         Schema::create('prepared_models', function (Blueprint $table) 
         {
             $table->bigInteger('id')->generatedAs()->always()->primary();
-            $table->bigInteger('unprepared_model_id')->unique();
+            $table->bigInteger('unprepared_model_id');
+            $table->bigInteger('unprepared_composite_model_part_id')->nullable();
             $table->text('preview_image');
             $table->integer('length');
             $table->integer('width');
             $table->integer('height');
 
+            $table->unique(['unprepared_model_id', 'unprepared_composite_model_part_id']);
             $table->foreign('unprepared_model_id')
                   ->references('id')->on('unprepared_models')
+                  ->onDelete('cascade');
+            $table->foreign('unprepared_composite_model_part_id')
+                  ->references('id')->on('unprepared_composite_model_parts')
                   ->onDelete('cascade');
         });
 

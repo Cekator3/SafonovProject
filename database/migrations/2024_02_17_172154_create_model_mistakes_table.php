@@ -21,8 +21,9 @@ return new class extends Migration
             $table->enum('type', ModelMistakeType::GetAllValues());
             $table->timestampTz('created_at');
             $table->integer('base_model_id');
-            $table->integer('unprepared_model_id')->nullable();
-            $table->integer('prepared_model_id')->nullable();
+            $table->bigInteger('unprepared_model_id')->nullable();
+            $table->bigInteger('unprepared_composite_model_part_id')->nullable();
+            $table->bigInteger('prepared_model_id')->nullable();
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
@@ -32,6 +33,9 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->foreign('unprepared_model_id')
                   ->references('id')->on('unprepared_models')
+                  ->onDelete('cascade');
+            $table->foreign('unprepared_composite_model_part_id')
+                  ->references('id')->on('unprepared_composite_model_parts')
                   ->onDelete('cascade');
             $table->foreign('prepared_model_id')
                   ->references('id')->on('prepared_models')
