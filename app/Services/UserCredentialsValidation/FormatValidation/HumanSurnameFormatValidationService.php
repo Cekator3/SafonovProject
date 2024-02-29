@@ -3,6 +3,7 @@
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
 use App\Services\UserInputErrors;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Subsystem for checking whether an human surname can exist.
@@ -17,9 +18,10 @@ class HumanSurnameFormatValidationService
             $errors->addError('surname', __('validation.required', ['attribute' =>'surname']));
             return;
         }
-        if ($len > $_ENV['MAX_HUMAN_SURNAME_LENGTH'])
+        $maxLen = Config::get('users.credentials.max_human_surname_length');
+        if ($len > $maxLen)
         {
-            $errors->addError('surname', __('validation.max.string', ['attribute' =>'surname', 'max' => $_ENV['MAX_HUMAN_SURNAME_LENGTH']]));
+            $errors->addError('surname', __('validation.max.string', ['attribute' =>'surname', 'max' => $maxLen]));
             return;
         }
     }

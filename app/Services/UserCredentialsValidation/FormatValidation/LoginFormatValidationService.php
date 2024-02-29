@@ -3,6 +3,7 @@
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
 use App\Services\UserInputErrors;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Subsystem for checking whether an user login can exist.
@@ -17,9 +18,10 @@ class LoginFormatValidationService
             $errors->addError('login', __('validation.required', ['attribute' => 'login']));
             return;
         }
-        if ($len > $_ENV['MAX_LOGIN_LENGTH'])
+        $maxLen = Config::get('users.credentials.max_login_length');
+        if ($len > $maxLen)
         {
-            $errors->addError('login', __('validation.max.string', ['attribute' => 'login', 'max' => $_ENV['MAX_LOGIN_LENGTH']]));
+            $errors->addError('login', __('validation.max.string', ['attribute' => 'login', 'max' => $maxLen]));
             return;
         }
     }

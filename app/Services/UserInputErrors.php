@@ -51,15 +51,19 @@ class UserInputErrors
 
     /**
      * Checks if any error messages exists.
-     * 
-     * @param string $inputName Identifier of the user input. 
-     * If specified checks if any error messages exists for concrete user input.
-     * @return bool
      */
-    public function hasAny(string $inputName = '') : bool
+    public function hasAny() : bool
     {
-        if ($inputName === '')
-            return $this->errors !== [];
+        return $this->errors !== [];
+    }
+
+    /**
+     * Checks if any error messages exists for concrete user input.
+     * 
+     * @param string $inputName Identifier of the user input.
+     */
+    public function hasAnyForInput(string $inputName) : bool
+    {
         return array_key_exists($inputName, $this->errors);
     }
 }

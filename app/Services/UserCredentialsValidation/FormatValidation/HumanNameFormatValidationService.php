@@ -3,6 +3,7 @@
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
 use App\Services\UserInputErrors;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Subsystem for checking whether an human name can exist.
@@ -17,9 +18,10 @@ class HumanNameFormatValidationService
             $errors->addError('name', __('validation.required', ['attribute' => 'name']));
             return;
         }
-        if ($len > $_ENV['MAX_HUMAN_NAME_LENGTH'])
+        $maxLen = Config::get('users.credentials.max_human_name_length');
+        if ($len > $maxLen)
         {
-            $errors->addError('name', __('validation.max.string', ['attribute' => 'name', 'max' => $_ENV['MAX_HUMAN_NAME_LENGTH']]));
+            $errors->addError('name', __('validation.max.string', ['attribute' => 'name', 'max' => $maxLen]));
             return;
         }
     }

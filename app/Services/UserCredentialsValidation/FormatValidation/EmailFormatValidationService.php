@@ -3,6 +3,7 @@
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
 use App\Services\UserInputErrors;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Subsystem for checking whether an e-mail address can exist.
@@ -20,11 +21,17 @@ class EmailFormatValidationService
             $errors->addError('email', __('validation.required', ['attribute' => 'email']));
             return;
         }
-        if ($len > $_ENV['MAX_EMAIL_LENGTH'])
+        $maxLen = Config::get('users.credentials.max_email_length');
+        if ($len > $maxLen)
         {
-            $errors->addError('email', __('validation.max.string', ['attribute' => 'email', 'max' => $_ENV['MAX_EMAIL_LENGTH']]));
+            $errors->addError('email', __('validation.max.string', ['attribute' => 'email', 'max' => $maxLen]));
             return;
         }
+    }
+
+    private static function isEmailValid(string $email) : bool
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
     /**
@@ -36,9 +43,9 @@ class EmailFormatValidationService
     public static function validateEmail(string $email, UserInputErrors $errors) : void
     {
         static::validateEmailLength($email, $errors);
-        if ($errors->hasAny('email'))
+        if ($errors->hasAnyForInput('email'))
             return;
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) 
+        if (! static::isEmailValid($email)) 
             $errors->addError('email', __('validation.email', ['attribute' => 'email']));
     }
 }

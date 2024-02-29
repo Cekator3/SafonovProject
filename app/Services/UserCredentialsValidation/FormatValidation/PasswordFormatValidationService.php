@@ -3,6 +3,7 @@
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
 use App\Services\UserInputErrors;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Subsystem for checking whether an user password can exist.
@@ -17,9 +18,10 @@ class PasswordFormatValidationService
             $errors->addError('password', __('validation.required', ['attribute' => 'password']));
             return;
         }
-        if ($len > $_ENV['MAX_PASSWORD_LENGTH'])
+        $maxLen = Config::get('users.credentials.max_password_length');
+        if ($len > $maxLen)
         {
-            $errors->addError('password', __('validation.max.string', ['attribute' => 'password', 'max' => $_ENV['MAX_PASSWORD_LENGTH']]));
+            $errors->addError('password', __('validation.max.string', ['attribute' => 'password', 'max' => $maxLen]));
             return;
         }
     }
@@ -33,7 +35,7 @@ class PasswordFormatValidationService
     public static function validatePassword(string $password, UserInputErrors $errors, string $password_confirmation = '', bool $isPasswordConfirmationRequired = false) : void
     {
         static::validatePasswordLength($password, $errors);
-        if ($errors->hasAny('password'))
+        if ($errors->hasAnyForInput('password'))
             return;
         if ($isPasswordConfirmationRequired && ($password !== $password_confirmation))
             $errors->addError('password', __('validation.confirmed', ['attribute' => 'password']));
