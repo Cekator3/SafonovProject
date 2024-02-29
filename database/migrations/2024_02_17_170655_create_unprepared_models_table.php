@@ -36,6 +36,8 @@ return new class extends Migration
         {
             $table->bigInteger('id')->generatedAs()->always()->primary();
             $table->bigInteger('unprepared_model_id');
+            $table->text('name');
+            $table->text('preview_image');
             $table->smallInteger('subpart_number');
             $table->text('file_model');
 
