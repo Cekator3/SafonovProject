@@ -16,6 +16,27 @@ use App\Services\UserCredentialsValidation\FormatValidation\HumanPatronymicForma
  */
 class CustomerRegistrationService
 {
+    private static function validateCustomerCredentials(string $login, 
+                                                        string $email,
+                                                        string $phoneNumber,
+                                                        string $name,
+                                                        string $surname,
+                                                        string $patronymic,
+                                                        string $password,
+                                                        string $password_confirmation,
+                                                        UserInputErrors $errors) : void
+    {
+        LoginFormatValidationService::validateLogin($login, $errors);
+        EmailFormatValidationService::validateEmail($email, $errors);
+        PhoneNumberFormatValidationService::validatePhoneNumber($phoneNumber, $errors);
+        if ($name !== '')
+            HumanNameFormatValidationService::validateName($name, $errors);
+        if ($patronymic !== '')
+            HumanPatronymicFormatValidationService::validatePatronymic($patronymic, $errors);
+        HumanSurnameFormatValidationService::validateSurname($surname, $errors);
+        PasswordFormatValidationService::validatePassword($password, $errors, $password_confirmation, true);
+    }
+
     /**
      * Registers the new customer.
      * 
@@ -32,14 +53,16 @@ class CustomerRegistrationService
                                             string $password_confirmation,
                                             UserInputErrors $errors) : void
     {
-        LoginFormatValidationService::validateLogin($login, $errors);
-        EmailFormatValidationService::validateEmail($email, $errors);
-        PhoneNumberFormatValidationService::validatePhoneNumber($phoneNumber, $errors);
-        if ($name !== '')
-            HumanNameFormatValidationService::validateName($name, $errors);
-        if ($patronymic !== '')
-            HumanPatronymicFormatValidationService::validatePatronymic($patronymic, $errors);
-        HumanSurnameFormatValidationService::validateSurname($surname, $errors);
-        PasswordFormatValidationService::validatePassword($password, $errors, $password_confirmation, true);
+        static::validateCustomerCredentials(
+            $login, 
+            $email, 
+            $phoneNumber, 
+            $name, 
+            $surname, 
+            $patronymic, 
+            $password, 
+            $password_confirmation, 
+            $errors
+        );
     }
 }
