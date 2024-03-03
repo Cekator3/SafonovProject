@@ -21,7 +21,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Try to login the user
+     * Tries to login the user
      */
     public function login(Request $request) : RedirectResponse
     {
@@ -35,6 +35,8 @@ class LoginController extends Controller
                 ->withInput();
         }
 
-        return redirect(RouteServiceProvider::HOME);
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }
