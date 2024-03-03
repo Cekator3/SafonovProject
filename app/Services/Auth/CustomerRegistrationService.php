@@ -2,8 +2,10 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Errors\UserInputErrors;
 use App\Repositories\UserRepository;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\ViewModels\CustomerViewModel;
 use App\Errors\UsersCredentialsUniquenessErrors;
@@ -37,10 +39,10 @@ class CustomerRegistrationService
 
     private static function saveNewCustomerDataInRepository(CustomerViewModel $customer, 
                                                             UserInputErrors $errors,
-                                                            mixed &$customerId) : void
+                                                            User|null &$customerDbData) : void
     {
         $e = new UsersCredentialsUniquenessErrors();
-        UserRepository::addCustomer($customer, $e, $customerId);
+        UserRepository::addCustomer($customer, $e, $customerDbData);
         if ($e->isLoginInUse())
             $errors->addError('login', __('validation.unique', ['attribute' => 'login']));
         if ($e->isPhoneNumberInUse())
@@ -52,20 +54,27 @@ class CustomerRegistrationService
     /**
      * Registers the new customer.
      * 
-     * @param CustomerViewModel $user The customer's data.
+     * @param CustomerViewModel $customer The customer's data.
      * @param UserInputErrors $errors An object for storing validation errors.
      * @return void
      */
-    public static function registerCustomer(CustomerViewModel $user, 
+    public static function registerCustomer(CustomerViewModel $customer, 
                                             UserInputErrors $errors) : void
     {
-        static::validateCustomerCredentials($user, $errors);
+        static::validateCustomerCredentials($customer, $errors);
         if ($errors->hasAny())
             return;
-        $customerId = 0;
-        static::saveNewCustomerDataInRepository($user, $errors, $customerId);
+
+        $customerDataInStorage = null;
+        static::saveNewCustomerDataInRepository($customer, $errors, $customerDataInStorage);
         if ($errors->hasAny())
             return;
-        Auth::loginUsingId($customerId);
+
+        if ($customerDataInStorage === null)
+            throw new \Exception('Customer data was not saved to the repository. Registration failed.');
+
+        Auth::login($customerDataInStorage);
+
+        event(new Registered($customerDataInStorage));
     }
 }

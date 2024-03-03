@@ -48,14 +48,20 @@ class UserRepository
     /**
      * Adds new customer's data to the repository (data storage).
      * 
+     * P.S This code is not clean: repository should not return 
+     * classes for interaction with the data storage 
+     * (parameter $customerDbData). 
+     * All interaction with the data storage should be done 
+     * through repositories.
+     * 
      * @param CustomerViewModel $customer New customer's data.
      * @param UsersCredentialsUniquenessErrors $errors 
      * An object for storing user's credentials uniqueness errors.
-     * @param mixed $customerId ID of the added customer in the repository.
+     * @param User|null $customerDbData Eloquent model of the added customer.
      */
     public static function addCustomer(CustomerViewModel $customer, 
                                        UsersCredentialsUniquenessErrors $errors,
-                                       mixed &$customerId = -1) : void
+                                       User|null &$customerDbData) : void
     {
         $phoneNumber = static::normalizePhoneNumber($customer->phoneNumber);
         $email = static::normalizeEmail($customer->email);
@@ -81,7 +87,7 @@ class UserRepository
             $user->patronymic = $customer->patronymic;
             $user->save();
 
-            $customerId = $user->id;
+            $customerDbData = $user;
         }
         catch (UniqueConstraintViolationException $e)
         {
