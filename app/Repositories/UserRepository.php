@@ -4,12 +4,9 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Enums\UserRole;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\ViewModels\CustomerViewModel;
 use App\Errors\UsersCredentialsUniquenessErrors;
-use App\Exceptions\UsersCredentialsAreInUseException;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 /**

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Errors\UserInputErrors;
-use Illuminate\Support\Benchmark;
 use App\Http\Controllers\Controller;
 use App\ViewModels\CustomerViewModel;
 use Illuminate\Http\RedirectResponse;
@@ -44,10 +43,7 @@ class CustomerRegistrationController extends Controller
         $user = static::getCustomerViewModel($request);
         $errors = new UserInputErrors();
 
-        Benchmark::dd(function () use ($user, $errors) 
-        {
-            CustomerRegistrationService::registerCustomer($user, $errors);
-        }, 20000);
+        CustomerRegistrationService::registerCustomer($user, $errors);
 
         if ($errors->hasAny()) {
             return redirect(route('register'))

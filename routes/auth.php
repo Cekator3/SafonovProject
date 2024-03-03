@@ -18,9 +18,11 @@ Route::middleware(RedirectIfAuthenticated::class)
 
     Route::controller(LoginController::class)->group(function ()
     {
-        Route::get('/login', 'showLoginForm');
+        Route::get('/login', 'showLoginForm')
+             ->name('login');
         Route::post('/login', 'login');
     });
 });
 
-Route::get('/logout', [LogoutController::class, 'logout']);
+Route::get('/logout', [LogoutController::class, 'logout'])
+     ->name('logout');
