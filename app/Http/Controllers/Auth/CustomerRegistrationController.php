@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
+use Illuminate\Support\Benchmark;
 use App\Http\Controllers\Controller;
+use App\ViewModels\CustomerViewModel;
 use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
 use App\Services\Auth\CustomerRegistrationService;
 
 class CustomerRegistrationController extends Controller
@@ -19,31 +22,32 @@ class CustomerRegistrationController extends Controller
         return view('auth.register');
     }
 
+    private static function getCustomerViewModel(Request $request) : CustomerViewModel
+    {
+        $user = new CustomerViewModel();
+        $user->login = $request->string('login', '');
+        $user->email = $request->string('email', '');
+        $user->phoneNumber = $request->string('phone_number', '');
+        $user->name = $request->string('name', '');
+        $user->surname = $request->string('surname', '');
+        $user->patronymic = $request->string('patronymic', '');
+        $user->password = $request->string('password', '');
+        $user->password_confirmation = $request->string('password_confirmation', '');
+        return $user;
+    }
+
     /**
      * Tries to register a user
      */
     public function register(Request $request) : RedirectResponse
     {
-        $login = $request->string('login', '');
-        $email = $request->string('email', '');
-        $phoneNumber = $request->string('phone_number', '');
-        $name = $request->string('name', '');
-        $surname = $request->string('surname', '');
-        $patronymic = $request->string('patronymic', '');
-        $password = $request->string('password', '');
-        $password_confirmation = $request->string('password_confirmation', '');
+        $user = static::getCustomerViewModel($request);
         $errors = new UserInputErrors();
-        CustomerRegistrationService::registerCustomer(
-            $login,
-            $email,
-            $phoneNumber,
-            $name,
-            $surname,
-            $patronymic,
-            $password,
-            $password_confirmation,
-            $errors
-        );
+
+        Benchmark::dd(function () use ($user, $errors) 
+        {
+            CustomerRegistrationService::registerCustomer($user, $errors);
+        }, 20000);
 
         if ($errors->hasAny()) {
             return redirect(route('register'))
@@ -51,6 +55,8 @@ class CustomerRegistrationController extends Controller
                 ->withInput();
         }
 
-        return redirect('/');
+        $request->session()->regenerate();
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }

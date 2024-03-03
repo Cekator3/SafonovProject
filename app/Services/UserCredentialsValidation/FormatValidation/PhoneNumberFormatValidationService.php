@@ -2,7 +2,7 @@
 
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
 use libphonenumber\PhoneNumberUtil;
 use Illuminate\Support\Facades\Config;
 
@@ -19,13 +19,16 @@ class PhoneNumberFormatValidationService
         $len = strlen($phoneNumber);
         if ($len === 0)
         {
-            $errors->addError('phone_number', __('validation.required', ['attribute' => 'phone_number']));
+            $errMessage = __('validation.required', ['attribute' => 'phone_number']);
+            $errors->addError('phone_number', $errMessage);
             return;
         }
         $maxLen = Config::get('users.credentials.max_phone_number_length');
         if ($len > $maxLen)
         {
-            $errors->addError('phone_number', __('validation.max.string', ['attribute' => 'phone_number', 'max' => $maxLen]));
+            $errMessage = __('validation.max.string', ['attribute' => 'phone_number', 
+                                                       'max' => $maxLen]);
+            $errors->addError('phone_number', $errMessage);
             return;
         }
     }
@@ -33,6 +36,15 @@ class PhoneNumberFormatValidationService
     private static function isPhoneNumberValid(string $phoneNumber) : bool
     {
         return PhoneNumberUtil::getInstance()->isPossibleNumber($phoneNumber, 'RU');
+    }
+
+    private static function validatePhoneNumberFormat(string $phoneNumber, 
+                                                      UserInputErrors $errors) : void
+    {
+        if (static::isPhoneNumberValid($phoneNumber)) 
+            return;
+        $errMessage = __('validation.phone_number', ['attribute' => 'phone_number']);
+        $errors->addError('phone_number', $errMessage);
     }
 
     /**
@@ -46,7 +58,6 @@ class PhoneNumberFormatValidationService
         static::validatePhoneNumberLength($phoneNumber, $errors);
         if ($errors->hasAnyForInput('phone_number'))
             return;
-        if (! static::isPhoneNumberValid($phoneNumber)) 
-            $errors->addError('phone_number', __('validation.phone_number', ['attribute' => 'phone_number']));
+        static::validatePhoneNumberFormat($phoneNumber, $errors);
     }
 }

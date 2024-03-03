@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Errors;
 
 /**
  * Subsystem for storing error messages of user's inputs.

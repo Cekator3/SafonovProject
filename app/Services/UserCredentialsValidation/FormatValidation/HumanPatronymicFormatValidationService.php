@@ -2,7 +2,7 @@
 
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -13,15 +13,12 @@ class HumanPatronymicFormatValidationService
     private static function validateHumanPatronymicLength(string $patronymic, UserInputErrors $errors)
     {
         $len = mb_strlen($patronymic, 'UTF-8');
-        if ($len === 0)
-        {
-            $errors->addError('patronymic', __('validation.required', ['attribute' => 'patronymic']));
-            return;
-        }
         $maxLen = Config::get('users.credentials.max_human_patronymic_length');
         if ($len > $maxLen)
         {
-            $errors->addError('surname', __('validation.max.string', ['attribute' =>'surname', 'max' => $maxLen]));
+            $errMessage = __('validation.max.string', ['attribute' =>'surname', 
+                                                       'max' => $maxLen]);
+            $errors->addError('surname', $errMessage);
             return;
         }
     }

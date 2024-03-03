@@ -31,8 +31,8 @@ class AppServiceProvider extends ServiceProvider
     private function logDatabaseQueries() : void
     {
         DB::listen(function ($query) {
-            Log::info($query->sql);     // the query being executed
-            Log::info($query->time);    // query time in milliseconds
+            Log::info("SQL QUERY: {$query->sql}");     
+            Log::info("SQL QUERY TIME: {$query->time} ms"); 
         });
     }
 }

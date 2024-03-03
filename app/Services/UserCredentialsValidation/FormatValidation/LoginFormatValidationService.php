@@ -2,7 +2,7 @@
 
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -15,13 +15,15 @@ class LoginFormatValidationService
         $len = mb_strlen($login, 'UTF-8');
         if ($len === 0) 
         {
-            $errors->addError('login', __('validation.required', ['attribute' => 'login']));
+            $errMessage = __('validation.required', ['attribute' => 'login']);
+            $errors->addError('login', $errMessage);
             return;
         }
         $maxLen = Config::get('users.credentials.max_login_length');
         if ($len > $maxLen)
         {
-            $errors->addError('login', __('validation.max.string', ['attribute' => 'login', 'max' => $maxLen]));
+            $errMessage = __('validation.max.string', ['attribute' => 'login', 'max' => $maxLen]);
+            $errors->addError('login', $errMessage);
             return;
         }
     }

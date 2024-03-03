@@ -2,7 +2,7 @@
 
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -15,13 +15,16 @@ class HumanSurnameFormatValidationService
         $len = mb_strlen($surname, 'UTF-8');
         if ($len == 0)
         {
-            $errors->addError('surname', __('validation.required', ['attribute' =>'surname']));
+            $errMessage = __('validation.required', ['attribute' =>'surname']);
+            $errors->addError('surname', $errMessage);
             return;
         }
         $maxLen = Config::get('users.credentials.max_human_surname_length');
         if ($len > $maxLen)
         {
-            $errors->addError('surname', __('validation.max.string', ['attribute' =>'surname', 'max' => $maxLen]));
+            $errMessage = __('validation.max.string', ['attribute' =>'surname', 
+                                                       'max' => $maxLen]);
+            $errors->addError('surname', $errMessage);
             return;
         }
     }

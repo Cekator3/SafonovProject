@@ -14,35 +14,35 @@
         @endif
 
         <div>
-            <input type="text" name="login" value={{ old('login') }}>
+            <input type="text" name="login" value='{{ old('login') }}' placeholder="login">
         </div>
 
         <div>
-            <input type="text" name="email" value={{ old('email') }}>
+            <input type="text" name="email" value='{{ old('email') }}' placeholder="email">
         </div>
 
         <div>
-            <input type="text" name="phone_number" value={{ old('phone_number') }}>
+            <input type="text" name="phone_number" value='{{ old('phone_number') }}' placeholder="phone_number">
         </div>
 
         <div>
-            <input type="text" name="name" value={{ old('name') }}>
+            <input type="text" name="name" value='{{ old('name') }}' placeholder="name">
         </div>
 
         <div>
-            <input type="text" name="surname" value={{ old('surname') }}>
+            <input type="text" name="surname" value='{{ old('surname') }}' placeholder="surname">
         </div>
 
         <div>
-            <input type="text" name="patronymic" value={{ old('patronymic') }}>
+            <input type="text" name="patronymic" value='{{ old('patronymic') }}' placeholder="patronymic">
         </div>
 
         <div>
-            <input type="password" name="password">
+            <input type="password" name="password" placeholder="password">
         </div>
 
         <div>
-            <input type="password" name="password_confirmation">
+            <input type="password" name="password_confirmation" placeholder="password_confirmation">
         </div>
 
         <div>

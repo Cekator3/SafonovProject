@@ -2,7 +2,7 @@
 
 namespace App\Services\UserCredentialsValidation\FormatValidation;
 
-use App\Services\UserInputErrors;
+use App\Errors\UserInputErrors;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -18,13 +18,16 @@ class EmailFormatValidationService
         $len = strlen($email);
         if ($len == 0) 
         {
-            $errors->addError('email', __('validation.required', ['attribute' => 'email']));
+            $errMessage = __('validation.required', ['attribute' => 'email']);
+            $errors->addError('email', $errMessage);
             return;
         }
         $maxLen = Config::get('users.credentials.max_email_length');
         if ($len > $maxLen)
         {
-            $errors->addError('email', __('validation.max.string', ['attribute' => 'email', 'max' => $maxLen]));
+            $errMessage = __('validation.max.string', ['attribute' => 'email', 
+                                                       'max' => $maxLen]);
+            $errors->addError('email', $errMessage);
             return;
         }
     }
@@ -32,6 +35,14 @@ class EmailFormatValidationService
     private static function isEmailValid(string $email) : bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    public static function validateEmailFormat(string $email, UserInputErrors $errors) : void
+    {
+        if (static::isEmailValid($email))
+            return;
+        $errMessage = __('validation.email', ['attribute' => 'email']);
+        $errors->addError('email', $errMessage);
     }
 
     /**
@@ -45,7 +56,6 @@ class EmailFormatValidationService
         static::validateEmailLength($email, $errors);
         if ($errors->hasAnyForInput('email'))
             return;
-        if (! static::isEmailValid($email)) 
-            $errors->addError('email', __('validation.email', ['attribute' => 'email']));
+        static::validateEmailFormat($email, $errors);
     }
 }
