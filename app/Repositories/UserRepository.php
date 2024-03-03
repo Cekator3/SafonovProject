@@ -52,7 +52,8 @@ class UserRepository
      * classes for interaction with the data storage 
      * (parameter $customerDbData). 
      * All interaction with the data storage should be done 
-     * through repositories.
+     * through repositories. This can't be fixed in laravel,
+     * because eloquent model is required for auth.
      * 
      * @param CustomerViewModel $customer New customer's data.
      * @param UsersCredentialsUniquenessErrors $errors 
