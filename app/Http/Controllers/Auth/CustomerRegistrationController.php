@@ -38,7 +38,7 @@ class CustomerRegistrationController extends Controller
     /**
      * Tries to register a customer
      */
-    public function register(Request $request) : RedirectResponse
+    public function registerCustomer(Request $request) : RedirectResponse
     {
         $user = static::getCustomerViewModel($request);
         $errors = new UserInputErrors();

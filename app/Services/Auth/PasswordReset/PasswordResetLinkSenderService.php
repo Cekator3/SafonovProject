@@ -16,8 +16,8 @@ class PasswordResetLinkSenderService
         EmailFormatValidationService::validateEmail($email, $errors);
         if ($errors->hasAny())
             return;
-        $normEmail = UserRepository::normalizeEmail($email);
-        $status = Password::sendResetLink(['email' => $normEmail]);
+        $normalizedEmail = UserRepository::normalizeEmail($email);
+        $status = Password::sendResetLink(['email' => $normalizedEmail]);
         if ($status !== Password::RESET_LINK_SENT)
             $errors->addError('status', __($status));
     }

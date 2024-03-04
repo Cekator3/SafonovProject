@@ -36,10 +36,26 @@ class PasswordResetService
         );
     }
 
+    private static 
+    function resetPassword(array $userCredentials, UserInputErrors $errors) : void
+    {
+        $status = Password::Reset($userCredentials, function (User $user, string $password) 
+        {
+            UserRepository::changeUserPassword($user, $password);
+
+            event(new PasswordReset($user));
+
+            //login user automatically (but without "remember me" option)
+            // Auth::login($user);
+        });
+        if ($status !== Password::PASSWORD_RESET)
+            $errors->addError('status', __($status));
+    }
+
     /**
      * Resets user's password.
      * 
-     * @param string $token The user's password reset token.
+     * @param string $token The user's reset password token.
      * @param string $email The user's email address.
      * @param string $password The user's new password.
      * @param string $passwordConfirmation The user's new password confirmation.
@@ -60,16 +76,6 @@ class PasswordResetService
             'email' => $email,
             'password' => $password,
         ];
-        $status = Password::Reset($userCredentials, function (User $user, string $password) 
-        {
-            UserRepository::changeUserPassword($user, $password);
-
-            event(new PasswordReset($user));
-
-            //login user automatically (but without "remember me" option)
-            // Auth::login($user);
-        });
-        if ($status !== Password::PASSWORD_RESET)
-            $errors->addError('status', __($status));
+        static::resetPassword($userCredentials, $errors);
     }
 }

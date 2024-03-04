@@ -16,7 +16,7 @@ Route::middleware(RedirectIfAuthenticated::class)->group(function ()
     {
         Route::get('/signup', 'showRegistrationForm')
             ->name('register');
-        Route::post('/signup', 'register');
+        Route::post('/signup', 'registerCustomer');
     });
 
     Route::controller(LoginController::class)->group(function ()

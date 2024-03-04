@@ -51,8 +51,7 @@ class UserRepository
      * 
      * TODO This code is not clean: 
      * External code shouldn't bother in what form the data is stored in the repository.
-     * This repository's function is required for password reset functionality in 
-     * laravel.
+     * This function meant to be used only for laravel's reset password functionality.
      */
     public static function normalizeEmail(string $email) : string
     {

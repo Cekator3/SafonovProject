@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth\EmailVerification;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;

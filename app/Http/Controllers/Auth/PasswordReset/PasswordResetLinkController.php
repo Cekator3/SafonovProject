@@ -12,8 +12,7 @@ use Illuminate\Http\RedirectResponse;
 class PasswordResetLinkController extends Controller
 {
     /**
-     * Displays a form to retrieve user's credentials (email) 
-     * that can be used to reset his password.
+     * Displays a form to retrieve the user's credentials (email) for password reset.
      */
     public function showForgotPasswordForm() : View
     {
