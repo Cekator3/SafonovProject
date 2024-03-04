@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth\PasswordReset;
+
 use App\Services\Auth\PasswordReset\PasswordResetService;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -23,19 +24,6 @@ class NewPasswordController extends Controller
         return view('auth.ResetPassword.reset-password', $viewData);
     }
 
-    private function validateResetPasswordToken(string $token, UserInputErrors $errors) : void
-    {
-
-    }
-
-    private function TryResetUserPassword(string $token, 
-                                          string $email, 
-                                          string $password, 
-                                          string &$status) : void
-    {
-
-    }
-
     /**
      * Resets user's password.
      */
@@ -47,11 +35,11 @@ class NewPasswordController extends Controller
         $passwordConfirmation = $request->input('password_confirmation', '');
         $errors = new UserInputErrors();
 
-        PasswordResetService::resetPassword($token, 
-                                            $email, 
-                                            $password, 
-                                            $passwordConfirmation, 
-                                            $errors
+        PasswordResetService::resetPasswordByEmail($token, 
+                                                   $email, 
+                                                   $password, 
+                                                   $passwordConfirmation, 
+                                                   $errors
         );
 
         if ($errors->hasAny()) {

@@ -36,7 +36,7 @@ class CustomerRegistrationController extends Controller
     }
 
     /**
-     * Tries to register a user
+     * Tries to register a customer
      */
     public function register(Request $request) : RedirectResponse
     {
