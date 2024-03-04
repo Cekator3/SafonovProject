@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Enums\UserRole;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\ViewModels\CustomerViewModel;
 use App\Errors\UsersCredentialsUniquenessErrors;
@@ -30,6 +31,11 @@ class UserRepository
         return User::where('phone_number', $phoneNumber)->exists();
     }
 
+    private static function generateRememberMeToken() : string
+    {
+        return Str::random(60);
+    }
+
     private static function hashPassword(string $password) : string
     {
         return Hash::make($password);
@@ -40,7 +46,15 @@ class UserRepository
         return preg_replace('/[^0-9]/', '', $phoneNumber);
     }
 
-    private static function normalizeEmail(string $email) : string
+    /**
+     * Translates the email into the form in which it is stored in the repository.
+     * 
+     * TODO This code is not clean: 
+     * External code shouldn't bother in what form the data is stored in the repository.
+     * This repository's function is required for password reset functionality in 
+     * laravel.
+     */
+    public static function normalizeEmail(string $email) : string
     {
         return strtolower($email);
     }
@@ -48,7 +62,7 @@ class UserRepository
     /**
      * Adds new customer's data to the repository (data storage).
      * 
-     * P.S This code is not clean: repository should not return 
+     * TODO This code is not clean: repository should not return 
      * classes for interaction with the data storage 
      * (parameter $customerDbData). 
      * All interaction with the data storage should be done 
@@ -96,5 +110,19 @@ class UserRepository
             $errors->setEmailUniqueness(static::isEmailInUse($email));
             $errors->setPhoneNumberUniqueness(static::isPhoneNumberInUse($phoneNumber));
         }
+    }
+
+    /**
+     * Changes user's password. 
+     * This function meant to be used only for laravel's reset password functionality.
+     * 
+     * @param User $user Eloquent model of the user whose password is to be changed.
+     * @param string $newPassword New user's password.
+     */
+    public static function changeUserPassword(User $user, string $newPassword) : void
+    {
+        $user->password = static::hashPassword($newPassword);
+        $user->remember_token = static::generateRememberMeToken();
+        $user->save();
     }
 }

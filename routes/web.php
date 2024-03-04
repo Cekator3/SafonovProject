@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,9 +13,19 @@
 |
 */
 
-Route::get('/', function () 
+
+Route::middleware([Authenticate::class, EnsureEmailIsVerified::class])
+     ->group(function () 
 {
-    return view('welcome');
+    Route::get('/', function () 
+    {
+        return view('welcome');
+    });
+    // Личный кабинет
+    // Корзина
+    // Отзывы
+    //...
+
 });
 
 require __DIR__.'/auth.php';

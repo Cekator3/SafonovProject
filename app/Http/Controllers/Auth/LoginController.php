@@ -13,7 +13,7 @@ use App\Providers\RouteServiceProvider;
 class LoginController extends Controller
 {
     /**
-     * Show login form
+     * Shows login form
      */
     public function showLoginForm() : View
     {

@@ -37,7 +37,7 @@ class EmailFormatValidationService
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    public static function validateEmailFormat(string $email, UserInputErrors $errors) : void
+    private static function validateEmailFormat(string $email, UserInputErrors $errors) : void
     {
         if (static::isEmailValid($email))
             return;

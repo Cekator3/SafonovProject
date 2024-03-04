@@ -51,8 +51,6 @@ class CustomerRegistrationController extends Controller
                 ->withInput();
         }
 
-        $request->session()->regenerate();
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

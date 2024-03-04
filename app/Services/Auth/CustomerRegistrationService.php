@@ -73,8 +73,9 @@ class CustomerRegistrationService
         if ($customerDataInStorage === null)
             throw new \Exception('Customer data was not saved to the repository. Registration failed.');
 
+        event(new Registered($customerDataInStorage));
+
         Auth::login($customerDataInStorage);
 
-        event(new Registered($customerDataInStorage));
     }
 }

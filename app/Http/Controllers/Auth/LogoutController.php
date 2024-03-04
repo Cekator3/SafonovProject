@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class LogoutController extends Controller
 {
     /**
-     * Logouts the user if he is logged in.
+     * Logs the user out if he is logged in.
      */
     public function logout(Request $request) : RedirectResponse
     {

@@ -11,17 +11,23 @@ use App\Services\UserCredentialsValidation\FormatValidation\PasswordFormatValida
  */
 class LoginService
 {
-    private static function validateUserCredentials(string $login, 
-                                                    string $password,
-                                                    UserInputErrors $errors) : void
+    private static function 
+    validateUserCredentials(string $login, string $password, UserInputErrors $errors) : void
     {
         LoginFormatValidationService::validateLogin($login, $errors);
         PasswordFormatValidationService::validatePassword($password, $errors);
     }
 
-    public static function loginUser(string $login, 
-                                     string $password, 
-                                     UserInputErrors $errors) : void
+    /**
+     * Logs the user in.
+     * 
+     * @param string $login The user's login.
+     * @param string $password The user's password.
+     * @param UserInputErrors $errors An object for storing validation errors.
+     * @return void
+     */
+    public static function 
+    loginUser(string $login, string $password, UserInputErrors $errors) : void
     {
         static::validateUserCredentials($login, $password, $errors);
         

@@ -158,7 +158,6 @@ return [
     'ulid' => 'The :attribute field must be a valid ULID.',
     'uuid' => 'The :attribute field must be a valid UUID.',
     'phone_number' => 'The :attribute field must be a valid phone number.',
-    'test' => 'test asdfjkh',
 
     /*
     |--------------------------------------------------------------------------
