@@ -4,7 +4,6 @@ namespace App\Services\Auth\PasswordReset;
 use App\Models\User;
 use App\Errors\UserInputErrors;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Services\UserCredentialsValidation\FormatValidation\EmailFormatValidationService;

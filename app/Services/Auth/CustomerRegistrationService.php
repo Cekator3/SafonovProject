@@ -2,11 +2,8 @@
 
 namespace App\Services\Auth;
 
-use App\Models\User;
 use App\Errors\UserInputErrors;
 use App\Repositories\UserRepository;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
 use App\ViewModels\CustomerViewModel;
 use App\Errors\UsersCredentialsUniquenessErrors;
 use App\Services\UserCredentialsValidation\FormatValidation\EmailFormatValidationService;
@@ -37,18 +34,26 @@ class CustomerRegistrationService
                                                           true);
     }
 
-    private static function saveNewCustomerDataInRepository(CustomerViewModel $customer, 
-                                                            UserInputErrors $errors,
-                                                            User|null &$customerDbData) : void
+    private static function 
+    saveNewCustomerDataInRepository(CustomerViewModel $customer, UserInputErrors $errors) : void
     {
-        $e = new UsersCredentialsUniquenessErrors();
-        UserRepository::addCustomer($customer, $e, $customerDbData);
-        if ($e->isLoginInUse())
-            $errors->addError('login', __('validation.unique', ['attribute' => 'login']));
-        if ($e->isPhoneNumberInUse())
-            $errors->addError('phone_number', __('validation.unique', ['attribute' => 'phone_number']));
-        if ($e->isEmailInUse())
-            $errors->addError('email', __('validation.unique', ['attribute' => 'email']));
+        $crErrors = new UsersCredentialsUniquenessErrors();
+        UserRepository::addCustomer($customer, $crErrors);
+        if ($crErrors->isLoginInUse())
+        {
+            $errMessage = __('validation.unique', ['attribute' => 'login']);
+            $errors->addError('login', $errMessage);
+        }
+        if ($crErrors->isPhoneNumberInUse())
+        {
+            $errMessage = __('validation.unique', ['attribute' => 'phone_number']);
+            $errors->addError('phone_number', $errMessage);
+        }
+        if ($crErrors->isEmailInUse())
+        {
+            $errMessage = __('validation.unique', ['attribute' => 'email']);
+            $errors->addError('email', $errMessage);
+        }
     }
 
     /**
@@ -65,17 +70,6 @@ class CustomerRegistrationService
         if ($errors->hasAny())
             return;
 
-        $customerDataInStorage = null;
-        static::saveNewCustomerDataInRepository($customer, $errors, $customerDataInStorage);
-        if ($errors->hasAny())
-            return;
-
-        if ($customerDataInStorage === null)
-            throw new \Exception('Customer data was not saved to the repository. Registration failed.');
-
-        event(new Registered($customerDataInStorage));
-
-        Auth::login($customerDataInStorage);
-
+        static::saveNewCustomerDataInRepository($customer, $errors);
     }
 }

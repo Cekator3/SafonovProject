@@ -1,4 +1,10 @@
 <?php
+
+use App\Http\Controllers\HomeController;
+use App\Http\Middleware\EnsureIsAdmin;
+use App\Http\Middleware\EnsureIsCustomer;
+use App\Http\Middleware\EnsureIsPrintMaster;
+use App\Http\Middleware\EnsureIsSuperuser;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 
@@ -13,18 +19,37 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 |
 */
 
+Route::get('/', HomeController::class);
 
-Route::middleware([Authenticate::class, EnsureEmailIsVerified::class])
+Route::middleware([Authenticate::class, EnsureIsCustomer::class])
      ->group(function () 
 {
-    Route::get('/', function () 
+
+    Route::middleware(EnsureEmailIsVerified::class)
+         ->group(function ()
     {
-        return view('welcome');
+
     });
-    // Личный кабинет
-    // Корзина
-    // Отзывы
-    //...
+});
+
+Route::middleware([Authenticate::class, EnsureIsPrintMaster::class])
+     ->prefix('print-master')
+     ->group(function () 
+{
+
+});
+
+Route::middleware([Authenticate::class, EnsureIsAdmin::class])
+     ->prefix('admin')
+     ->group(function ()
+{
+
+});
+
+Route::middleware([Authenticate::class, EnsureIsSuperuser::class])
+     ->prefix('superuser')
+     ->group(function ()
+{
 
 });
 

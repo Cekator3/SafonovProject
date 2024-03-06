@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Enums\UserRole;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\ViewModels\CustomerViewModel;
 use App\Errors\UsersCredentialsUniquenessErrors;
@@ -61,21 +63,12 @@ class UserRepository
     /**
      * Adds new customer's data to the repository (data storage).
      * 
-     * TODO This code is not clean: repository should not return 
-     * classes for interaction with the data storage 
-     * (parameter $customerDbData). 
-     * All interaction with the data storage should be done 
-     * through repositories. This can't be fixed in laravel,
-     * because eloquent model is required for auth.
-     * 
      * @param CustomerViewModel $customer New customer's data.
      * @param UsersCredentialsUniquenessErrors $errors 
      * An object for storing user's credentials uniqueness errors.
-     * @param User|null $customerDbData Eloquent model of the added customer.
      */
-    public static function addCustomer(CustomerViewModel $customer, 
-                                       UsersCredentialsUniquenessErrors $errors,
-                                       User|null &$customerDbData) : void
+    public static function 
+    addCustomer(CustomerViewModel $customer, UsersCredentialsUniquenessErrors $errors) : void
     {
         $phoneNumber = static::normalizePhoneNumber($customer->phoneNumber);
         $email = static::normalizeEmail($customer->email);
@@ -101,7 +94,14 @@ class UserRepository
             $user->patronymic = $customer->patronymic;
             $user->save();
 
-            $customerDbData = $user;
+            // TODO Repository should not do anything besides
+            // interacting with the data storage. 
+            // Unfortunately for login functionality laravel requires
+            // an ORM object (class for interaction with SQL database).
+            // So it's either pass an ORM object outside of the repository 
+            // or login a user right here.
+            Auth::login($user);
+            event(new Registered($user));
         }
         catch (UniqueConstraintViolationException $e)
         {
