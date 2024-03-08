@@ -25,9 +25,12 @@ class LoginController extends Controller
      */
     public function login(Request $request) : RedirectResponse
     {
+        $login = $request->input('login', '');
+        $password = $request->input('password','');
+        $rememberUser = $request->input('remember_user', false);
         $errors = new UserInputErrors();
 
-        LoginService::loginUser($request->login, $request->password, $errors);
+        LoginService::loginUser($login, $password, $rememberUser, $errors);
 
         if ($errors->hasAny()) {
             return redirect(route('login'))

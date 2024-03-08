@@ -19,7 +19,7 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
 
 Route::middleware([Authenticate::class, EnsureIsCustomer::class])
      ->group(function () 

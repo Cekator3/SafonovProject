@@ -1,37 +1,89 @@
 <!DOCTYPE html>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Laravel</title>
+
+    <!-- Fonts -->
+
+    <!-- Styles -->
+    <link href="/assets/css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/themes.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/login.css" rel="stylesheet" type="text/css">
+</head>
+
 <body>
-    <form action="{{ route('login') }}" method="post">
-        @csrf
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    <header>
+        {{-- logo --}}
+        <a href="{{ route('home') }}">
+            <span>3D</span>
+            <span>models</span>
+        </a>
+    </header>
 
-        <div>
-            <input type="text" name="login" value='{{ old('login') }}' placeholder="login">
-        </div>
+    <main>
+        <header>
+            <ul>
+                <li><a href="{{ route('login') }}">Вход</a></li>
+                <li>|</li>
+                <li>Регистрация</li>
+            </ul>
+        </header>
 
-        <div>
-            <input type="password" name="password" placeholder="password">
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    'Forgot your password?'
-                </a>
+        <form action="{{ route('login') }}" method="post">
+            @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
             <div>
-                <input type="submit" value="1">
+                <label for="login">Логин</label>
+                <input type="text" 
+                       id="login" 
+                       name="login" 
+                       value='{{ old('login') }}' 
+                       required 
+                       autofocus 
+                       autocomplete="username"
+                >
             </div>
-        </div>
 
-    </form>
+            <div>
+                <label for="password">Пароль</label>
+                <input type="password" 
+                       id="password"
+                       name="password" 
+                       required 
+                       autocomplete="current-password"
+                >
+            </div>
+
+            <div>
+                {{-- Remember me --}}
+                <div>
+                    <label for="remember_me">Запомнить меня</label>
+                    <input type="checkbox" 
+                        name="remember_me" 
+                        id="remember_me" 
+                        @checked(old('remember_me'))
+                    >
+                </div>
+                {{-- Forgot password --}}
+                <div>
+                    <a href="{{ route('password.request') }}">Восстановить пароль</a>
+                </div>
+            </div>
+            <div>
+                <button type="submit">Войти</button>
+            </div>
+        </form>
+    </main>
 </body>

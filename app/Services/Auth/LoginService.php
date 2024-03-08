@@ -23,18 +23,19 @@ class LoginService
      * 
      * @param string $login The user's login.
      * @param string $password The user's password.
+     * @param bool $rememberUser Should the user be remembered.
      * @param UserInputErrors $errors An object for storing validation errors.
      * @return void
      */
     public static function 
-    loginUser(string $login, string $password, UserInputErrors $errors) : void
+    loginUser(string $login, string $password, bool $rememberUser, UserInputErrors $errors) : void
     {
         static::validateUserCredentials($login, $password, $errors);
         
         if ($errors->hasAny())
             return;
 
-        if(! Auth::attempt(['login' => $login, 'password' => $password]))
+        if(! Auth::attempt(['login' => $login, 'password' => $password], $rememberUser))
         {
             $errMessage = __('auth.failed');
             $errors->addError('login', $errMessage);
