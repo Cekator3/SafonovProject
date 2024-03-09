@@ -11,16 +11,20 @@
     <!-- Styles -->
     <link href="/assets/css/normalize.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/themes.css" rel="stylesheet" type="text/css">
+    {{-- Other styles --}}
+    <link href="/assets/css/app.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/login.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
     <header>
         {{-- logo --}}
-        <a href="{{ route('home') }}">
-            <span>3D</span>
-            <span>models</span>
+        <a class="company-logo" href="{{ route('home') }}">
+            <span class="company-logo-3d">3D</span>
+            <span class="company-logo-text">models</span>
         </a>
+
+        <nav><ul><li>lol</li></ul></nav>
     </header>
 
     <main>
@@ -85,5 +89,7 @@
                 <button type="submit">Войти</button>
             </div>
         </form>
+
     </main>
+    <footer></footer>
 </body>
