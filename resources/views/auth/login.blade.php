@@ -24,7 +24,13 @@
             <span class="company-logo-text">models</span>
         </a>
 
-        <nav><ul><li>lol</li></ul></nav>
+        {{-- <nav>
+            <li>lol</li>
+            <li>lol</li>
+            <li>lol</li>
+            <li>lol</li>
+            <li>lol</li>
+        </nav> --}}
     </header>
 
     <main>

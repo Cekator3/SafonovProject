@@ -8,8 +8,8 @@
 
 html
 {
+    height: 100vh;
     /* Background */
-    height: 100%;
     background-color: var(--main-bg-color);
     background-image: url(/assets/images/main-background.svg);
     background-attachment: fixed;
@@ -19,18 +19,10 @@ html
 body
 {
     width: 66%;
-    /* Horizontally center */
-    margin: 0 auto;
-    background-color: transparent;
     min-height: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-}
-
-body > *
-{
-    width: 100%;
+    background-color: transparent;
+    /* Horizontally center content */
+    margin: 0 auto;
 }
 
 /* Logo and navigation */
@@ -87,7 +79,6 @@ body > header
 /* navigation */
 body > header > nav
 {
-    flex-shrink: 4;
     /* Removes markers and margins */
     list-style-type: none;
     padding-left: 0;
@@ -115,14 +106,17 @@ body > header > nav:last-child
 
 main
 {
-    /* Centers content */
-    align-self: center;
-    margin-bottom: auto;
+    /* Centers main element */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     /* Moves items to the center */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
+    align-items: center;
 }
 
 /* Header before login form */
