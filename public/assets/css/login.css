@@ -24,8 +24,13 @@ body
     background-color: transparent;
     min-height: 100%;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
+    flex-flow: row wrap;
+    align-items: flex-start;
+}
+
+body > *
+{
+    width: 100%;
 }
 
 /* Logo and navigation */
@@ -37,7 +42,6 @@ body > header
     justify-content: space-between;
     align-items: baseline;
     /* Sets the distance between upper border of body and header */
-    flex-grow: 10;
 }
 
 /* Logo */
@@ -48,6 +52,7 @@ body > header
     color: unset;
     /* Configures font */
     font-weight: 800;
+    font-size: var(--logo-fontsize);
 }
 
 /* Logo (3D) */
@@ -110,18 +115,14 @@ body > header > nav:last-child
 
 main
 {
-    height: auto;
+    /* Centers content */
+    align-self: center;
+    margin-bottom: auto;
+
     /* Moves items to the center */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-
-    flex-grow: 80;
-}
-
-main-after::after
-{
-    margin-top: auto;
 }
 
 /* Header before login form */
@@ -135,9 +136,4 @@ main > header > *
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-}
-
-footer
-{
-    flex-grow: 10;
 }
