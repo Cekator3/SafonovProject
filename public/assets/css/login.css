@@ -6,23 +6,72 @@
     font-style: normal;
 }
 
+/* --------------------- */
+/* Manrope */
+/* --------------------- */
+@font-face {
+    font-family: ManropeVariable;
+    src: url(/assets/fonts/Manrope/Manrope-VariableFont_wght.woff2) format('woff2');
+    font-weight: 1 999;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-bold-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-bold-webfont.woff) format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-regular-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-regular-webfont.woff) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-light-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-light-webfont.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+/* --------------------- */
+
 html
 {
-    height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+    /* 16px * 0.625 = 10px */
+    font-size: 0.625em;
     /* Background */
     background-color: var(--main-bg-color);
     background-image: url(/assets/images/main-background.svg);
     background-attachment: fixed;
     background-size: cover;
+    color: var(--main-text-color);
+}
+
+a
+{
+    /* Removes styles from anchors */
+    text-decoration: none;
+    color: inherit;
 }
 
 body
 {
     width: 66%;
-    min-height: 100%;
+    height: 100%;
     background-color: transparent;
-    /* Horizontally center content */
+    /* Horizontally centers element */
     margin: 0 auto;
+    /* Creates grid layout */
+    display: grid;
+    grid-template-rows: 11% 78% 11%;
 }
 
 /* Logo and navigation */
@@ -33,7 +82,8 @@ body > header
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: baseline;
-    /* Sets the distance between upper border of body and header */
+    /* Aligns content to the end of the header element (grid) */
+    align-self: end;
 }
 
 /* Logo */
@@ -73,7 +123,6 @@ body > header
 {
     /* Sets font */
     font-family: OpenSans, Arial, Helvetica, sans-serif;
-    color: var(--heavy-text);
 }
 
 /* navigation */
@@ -106,21 +155,29 @@ body > header > nav:last-child
 
 main
 {
-    /* Centers main element */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* Horizontally centers main element */
+    grid-row: 2;
 
-    /* Moves items to the center */
+    /* Centers items */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+
+    width: 30%;
+    margin: 0 auto;
 }
 
+main > *
+{
+    width: 100%;
+}
+
+
+/* --------------------- */
 /* Header before login form */
-main > header > *
+/* --------------------- */
+.auth-actions
 {
     /* Removes markers and margins */
     list-style-type: none;
@@ -129,5 +186,36 @@ main > header > *
     /* Moves items to the center */
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.auth-action.current
+{
+    /* Adds gradient to text */
+    background-image: var(--auth-action-link-gradient);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+.auth-action.separator
+{
+    /* Creates separator */
+    height: 2.5rem;
+    border-right: 1px solid var(--secondary-text-color); 
+}
+/* --------------------- */
+
+/* Login form */
+main form 
+{
+
 }

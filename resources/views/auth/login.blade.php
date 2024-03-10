@@ -35,10 +35,10 @@
 
     <main>
         <header>
-            <ul>
-                <li><a href="{{ route('login') }}">Вход</a></li>
-                <li>|</li>
-                <li>Регистрация</li>
+            <ul class="auth-actions">
+                <li class="auth-action current">Вход</li>
+                <li class="auth-action separator"></li>
+                <li class="auth-action another"><a href="{{ route('register') }}">Регистрация</a></li>
             </ul>
         </header>
 
@@ -95,6 +95,5 @@
                 <button type="submit">Войти</button>
             </div>
         </form>
-
     </main>
 </body>
