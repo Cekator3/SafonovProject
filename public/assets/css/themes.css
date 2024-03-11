@@ -19,6 +19,9 @@
     --form-input-text-border-color: white;
     --form-input-text-bg-color: #0C061F;
 
+    /* Form input margins */
+    --form-input-text-first-letter-padding: 1rem;
+
     /* form checkbox colors */
     --form-checkbox-active-color: #0075FF;
     --form-checkbox-not-active-color: var(--main-text-color);

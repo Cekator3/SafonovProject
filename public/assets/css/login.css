@@ -207,6 +207,7 @@ main > *
     -moz-text-fill-color: transparent;
 }
 
+/* Actions separator */
 .action.separator
 {
     /* Creates separator */
@@ -227,11 +228,16 @@ main > *
     font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
     font-size: 0.9375rem; /* 15px */
     line-height: 1.28125rem; /* 20.5px */
+
+    /* Prepares element for absolute positioning labels */
+    position: relative;
+
 }
 
 /* Last input field */
 .input-field:last-of-type
 {
+    /* Removes uneccecary gap */
     margin-bottom: 0;
 }
 
@@ -243,7 +249,7 @@ main > *
     height: 3.25rem;    /* 52 px */   
 
     /* Creates space before text */
-    padding-left: 1rem;
+    padding-left: var(--form-input-text-first-letter-padding);
 
     /* Creates borders */
     border: 0.5px solid var(--form-input-text-border-color); 
@@ -260,12 +266,19 @@ main > *
 /* Text input placeholder */
 .input-field.text label
 {
-    cursor: text;
+    /* Places the label inside the input */
+    position: absolute;
+    top: 1rem;
+    left: var(--form-input-text-first-letter-padding);
+
     /* Sets colors */
     color: var(--form-input-placeholder-color);
 
-    /* Sets font */
+    /* Sets font */    
     font-weight: 300;
+
+    /* Sets cursor type */
+    cursor: text;
 }
 
 /* Submit button */
@@ -293,9 +306,11 @@ main > *
 
 .input-field.submit button:hover
 {
-    cursor: pointer;
     /* Sets animation direction */
     background-position: right center;
+
+    /* Sets cursor type */
+    cursor: pointer;
 }
 
 /* Pressed submit button */
@@ -313,7 +328,7 @@ main > *
     /* Removes standard checkbox bullet */
     display: none;
 
-    /* Sets cursor */
+    /* Sets cursor type */
     cursor: pointer;
 }
 
@@ -324,7 +339,7 @@ main > *
     display: flex;
     align-items: baseline;
 
-    /* Sets cursor */
+    /* Sets cursor type */
     cursor: pointer;
 
     /* Sets font */
@@ -359,8 +374,8 @@ main > *
     margin-right: 0.5rem;
 
     /* Sets checkbox bullet size */
-    height: 0.5rem;
-    width: 0.5rem;
+    height: calc(0.5rem - 2px);
+    width: calc(0.5rem - 2px);
 
     /* Sets checkbox bullet border */
     border: 1px solid var(--form-checkbox-not-active-color);
