@@ -55,7 +55,6 @@
             @endif
 
             <div class="input-field text">
-                <label for="login">Логин</label>
                 <input type="text" 
                        id="login" 
                        name="login" 
@@ -64,16 +63,17 @@
                        autofocus 
                        autocomplete="username"
                 >
+                <label for="login">Логин</label>
             </div>
 
             <div class="input-field text">
-                <label for="password">Пароль</label>
                 <input type="password" 
                        id="password"
                        name="password" 
                        required 
                        autocomplete="current-password"
                 >
+                <label for="password">Пароль</label>
             </div>
 
             <div class="input-field options">
@@ -87,7 +87,7 @@
                     <label for="remember_me">Запомнить меня</label>
                 </div>
                 {{-- Forgot password --}}
-                <div>
+                <div class="forgot-password">
                     <a href="{{ route('password.request') }}">Восстановить пароль</a>
                 </div>
             </div>

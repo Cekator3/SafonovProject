@@ -13,8 +13,11 @@
     --main-text-color: white;
     --secondary-text-color: #828282;
 
+    /* Form text input font size */
+    --form-input-text-font-size: 0.9375rem;   /* 15px */
+
     /* form input colors */
-    --form-input-placeholder-color: hsla(0, 0%, 100%, 0.3);
+    --form-input-placeholder-color: hsla(0, 0%, 100%, 0.5);
     --form-input-text-color: white;
     --form-input-text-border-color: white;
     --form-input-text-bg-color: #0C061F;

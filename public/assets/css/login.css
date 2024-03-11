@@ -219,6 +219,19 @@ main > *
 /* --------------------- */
 /* Login form */
 /* --------------------- */
+
+/* Removes browser's autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus
+{
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: var(--form-input-text-color);
+}
+
 .input-field
 {
     /* Sets gaps between input fields */
@@ -226,13 +239,13 @@ main > *
     
     /* Sets font */
     font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
-    font-size: 0.9375rem; /* 15px */
+    font-size: var(--form-input-text-font-size);
     line-height: 1.28125rem; /* 20.5px */
 
     /* Prepares element for absolute positioning labels */
     position: relative;
-
 }
+
 
 /* Last input field */
 .input-field:last-of-type
@@ -266,7 +279,7 @@ main > *
 /* Text input placeholder */
 .input-field.text label
 {
-    /* Places the label inside the input */
+    /* Places the placeholder inside the input */
     position: absolute;
     top: 1rem;
     left: var(--form-input-text-first-letter-padding);
@@ -279,6 +292,17 @@ main > *
 
     /* Sets cursor type */
     cursor: text;
+
+    /* Sets animation */
+    transform-origin: left center;
+    transition: transform 250ms;
+}
+
+/* Moves the placeholder upwards  */
+.input-field.text input:focus ~ label,
+.input-field.text input:valid ~ label
+{
+    transform: translateY(calc(-1 * var(--form-input-text-font-size) - 0.08rem)) scale(0.75);
 }
 
 /* Submit button */
@@ -326,7 +350,10 @@ main > *
 .input-field.checkbox-radio input
 {
     /* Removes standard checkbox bullet */
-    display: none;
+    /* display: none; */
+    opacity: 0;
+	position: absolute;
+	top: 0;
 
     /* Sets cursor type */
     cursor: pointer;
@@ -394,7 +421,27 @@ main > *
 /* Label of checked button */
 .input-field.checkbox-radio input:checked ~ label::before
 {
+    /* Changes colors of button's bullet */
     background-color: var(--form-checkbox-active-color);
     border-color: var(--form-checkbox-active-color);
 }
+
+/* Label of focused button */
+.input-field.checkbox-radio input:focus ~ label::before
+{
+    /* Changes colors of button's bullet */
+    border-color: var(--form-checkbox-active-color);
+}
 /* --------------------- */
+
+/* Forgot password link */
+.forgot-password a
+{
+    text-decoration: underline;
+    color: #afafaf;
+}
+
+.forgot-password a:hover
+{
+    color: hsla(0, 0%, 100%, 0.87);
+}
