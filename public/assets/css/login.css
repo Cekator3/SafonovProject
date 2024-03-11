@@ -40,13 +40,15 @@
     font-style: normal;
 }
 /* --------------------- */
+*
+{
+    box-sizing: border-box;
+}
 
 html
 {
     height: 100%;
-    box-sizing: border-box;
-    /* 16px * 0.625 = 10px */
-    font-size: 0.625em;
+    font-size: 1em; /* 16px */
     /* Background */
     background-color: var(--main-bg-color);
     background-image: url(/assets/images/main-background.svg);
@@ -152,7 +154,6 @@ body > header > nav:last-child
 }
 /* --------------------- */
 
-
 main
 {
     /* Horizontally centers main element */
@@ -177,7 +178,7 @@ main > *
 /* --------------------- */
 /* Header before login form */
 /* --------------------- */
-.auth-actions
+.actions
 {
     /* Removes markers and margins */
     list-style-type: none;
@@ -191,10 +192,10 @@ main > *
     /* Sets font */
     font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 1.875rem; /* 30 px */
 }
 
-.auth-action.current
+.action.current
 {
     /* Adds gradient to text */
     background-image: var(--auth-action-link-gradient);
@@ -206,16 +207,179 @@ main > *
     -moz-text-fill-color: transparent;
 }
 
-.auth-action.separator
+.action.separator
 {
     /* Creates separator */
-    height: 2.5rem;
+    height: 2.5rem;    /* 40px */
     border-right: 1px solid var(--secondary-text-color); 
 }
 /* --------------------- */
 
+/* --------------------- */
 /* Login form */
-main form 
+/* --------------------- */
+.input-field
 {
-
+    /* Sets gaps between input fields */
+    margin-bottom: 0.6875rem; /* 11px */
+    
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.28125rem; /* 20.5px */
 }
+
+/* Last input field */
+.input-field:last-of-type
+{
+    margin-bottom: 0;
+}
+
+
+/* Text input field */
+.input-field.text input
+{
+    width: 100%;
+    height: 3.25rem;    /* 52 px */   
+
+    /* Creates space before text */
+    padding-left: 1rem;
+
+    /* Creates borders */
+    border: 0.5px solid var(--form-input-text-border-color); 
+    border-radius: 20px;
+
+    /* Sets colors */
+    background-color: var(--form-input-text-bg-color);
+    color: var(--form-input-text-color);
+
+    /* Sets font */
+    font-weight: 400;
+}
+
+/* Text input placeholder */
+.input-field.text label
+{
+    cursor: text;
+    /* Sets colors */
+    color: var(--form-input-placeholder-color);
+
+    /* Sets font */
+    font-weight: 300;
+}
+
+/* Submit button */
+.input-field.submit button
+{
+    width: 100%;
+    height: 2.5rem;     /* 40px */
+
+    /* Sets rounded corners */
+    border-radius: 20px;
+
+    /* Sets font */
+    font-size: 1rem;         /* 16px */
+    line-height: 1.36625rem; /* 21.86px */
+
+    /* Sets colors */
+    color: var(--form-submit-text-color);
+    background-image: var(--form-submit-filled-gradient);
+    background-size: var(--form-submit-filled-bg-size);
+    border: none;
+
+    /* Sets animation speed */
+    transition: 0.5s;
+}
+
+.input-field.submit button:hover
+{
+    cursor: pointer;
+    /* Sets animation direction */
+    background-position: right center;
+}
+
+/* Pressed submit button */
+.input-field.submit button:active
+{
+    transition: 0.2s;
+    box-shadow: var(--form-submit-box-shadow);
+}
+
+/* ---------------------------------*/
+/* Checkbox button with radio style */
+/* ---------------------------------*/
+.input-field.checkbox-radio input
+{
+    /* Removes standard checkbox bullet */
+    display: none;
+
+    /* Sets cursor */
+    cursor: pointer;
+}
+
+/* Checkbox-radio label */
+.input-field.checkbox-radio label
+{
+    /* Centers checkbox bullet and label */
+    display: flex;
+    align-items: baseline;
+
+    /* Sets cursor */
+    cursor: pointer;
+
+    /* Sets font */
+    font-weight: 300;
+}
+
+/* "Remember me" and "Reset Password" options */
+.input-field.options
+{
+    /* Places the options on opposite sides */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    /* Sets bigger margin between others input fields */
+    margin: 1rem 0;
+}
+
+.input-field.options > *
+{
+    /* Centers options horizontally */
+    margin: auto 0;
+}
+
+/* Checkbox-radio bullet */
+.input-field.checkbox-radio label:before
+{
+    /* Creates checkbox bullet */
+    content: '';
+
+    /* Sets margin between checkbox bullet and label */
+    margin-right: 0.5rem;
+
+    /* Sets checkbox bullet size */
+    height: 0.5rem;
+    width: 0.5rem;
+
+    /* Sets checkbox bullet border */
+    border: 1px solid var(--form-checkbox-not-active-color);
+
+    /* Sets bullet's area without background color */
+    background-clip: content-box;
+    padding: 1px;
+
+    /* Rounds checkbox bullet */
+    border-radius: 50%;
+
+    /* Sets animation */
+    transition: background-color .3s ease;
+}
+
+/* Label of checked button */
+.input-field.checkbox-radio input:checked ~ label::before
+{
+    background-color: var(--form-checkbox-active-color);
+    border-color: var(--form-checkbox-active-color);
+}
+/* --------------------- */

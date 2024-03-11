@@ -2,27 +2,34 @@
 :root
 {
     /* logo */
-    --logo-fontsize: 4.8rem;   /* 48px */
+    --logo-fontsize: 3rem;   /* 48px */
     --logo-gradient: conic-gradient(from 180deg at 51.84% 50.76%, #FFADAC 0deg, #5A6AFF 102.75deg, #FA4CB2 234deg, #A62AFB 360deg);
     --logo-gradient-fallback: linear-gradient(90.26deg, #546FFF 2.38%, #FF59AD 31.3%, #E946C1 63.78%, #FFA7AB 99.81%);
 
     /* Auth form */
     --auth-action-link-gradient: linear-gradient(91.99deg, rgba(254, 79, 174, 0.6) 1.95%, rgba(84, 111, 255, 0.6) 46.14%, rgba(255, 169, 171, 0.6) 76.72%);
 
-
     --main-bg-color: #0C061F;
     --main-text-color: white;
     --secondary-text-color: #828282;
 
-    /* form input */
+    /* form input colors */
     --form-input-placeholder-color: hsla(0, 0%, 100%, 0.3);
     --form-input-text-color: white;
-    --form-input-border-color: white;
+    --form-input-text-border-color: white;
+    --form-input-text-bg-color: #0C061F;
 
-    /* form submit */
-    --form-submit-filled-gradient: radial-gradient(366.3% 1692.2% at 97.13% 90.22%, #FFA9AB 0%, #DB3FCE 10.07%, #FF59AD 20.19%, #655FFF 30.5%);
+    /* form checkbox colors */
+    --form-checkbox-active-color: #0075FF;
+    --form-checkbox-not-active-color: var(--main-text-color);
+
+    /* form submit colors */
+    --form-submit-filled-gradient: linear-gradient(to right, #FFA9AB 0%, #DB3FCE 16.7%, #FF59AD 33.36%, #655FFF 50%, #FF59AD 66.66%, #DB3FCE 83.3333%, #FFA9AB 100%);
+    --form-submit-filled-bg-size: 200% auto;
     --form-submit-hollow-gradient: radial-gradient(366.3% 1692.2% at 97.13% 90.22%, #FFA9AB 0%, #DB3FCE 10.07%, #FF59AD 20.19%, #655FFF 30.5%);
     --form-submit-text-color: #0C061F;
+    --form-submit-box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+                              inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 /* 

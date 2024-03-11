@@ -35,10 +35,10 @@
 
     <main>
         <header>
-            <ul class="auth-actions">
-                <li class="auth-action current">Вход</li>
-                <li class="auth-action separator"></li>
-                <li class="auth-action another"><a href="{{ route('register') }}">Регистрация</a></li>
+            <ul class="actions">
+                <li class="action current">Вход</li>
+                <li class="action separator"></li>
+                <li class="action another"><a href="{{ route('register') }}">Регистрация</a></li>
             </ul>
         </header>
 
@@ -54,7 +54,7 @@
                 </div>
             @endif
 
-            <div>
+            <div class="input-field text">
                 <label for="login">Логин</label>
                 <input type="text" 
                        id="login" 
@@ -66,7 +66,7 @@
                 >
             </div>
 
-            <div>
+            <div class="input-field text">
                 <label for="password">Пароль</label>
                 <input type="password" 
                        id="password"
@@ -76,22 +76,22 @@
                 >
             </div>
 
-            <div>
+            <div class="input-field options">
                 {{-- Remember me --}}
-                <div>
-                    <label for="remember_me">Запомнить меня</label>
+                <div class="input-field checkbox-radio">
                     <input type="checkbox" 
-                        name="remember_me" 
-                        id="remember_me" 
-                        @checked(old('remember_me'))
+                           name="remember_me" 
+                           id="remember_me" 
+                           @checked(old('remember_me'))
                     >
+                    <label for="remember_me">Запомнить меня</label>
                 </div>
                 {{-- Forgot password --}}
                 <div>
                     <a href="{{ route('password.request') }}">Восстановить пароль</a>
                 </div>
             </div>
-            <div>
+            <div class="input-field submit">
                 <button type="submit">Войти</button>
             </div>
         </form>
