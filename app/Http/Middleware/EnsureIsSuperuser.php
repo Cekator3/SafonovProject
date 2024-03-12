@@ -23,9 +23,9 @@ class EnsureIsSuperuser
      */
     public function handle(Request $request, Closure $next): Response
     {
+        assert(Auth::check(), 'User must be authenticated');
         if (Auth::user()->isSuperuser())
             return $next($request);
-        assert(Auth::check(), 'User must be authenticated');
         abort(HttpResponseStatus::NotFound->value);
     }
 }

@@ -94,12 +94,20 @@ class UserRepository
             $user->patronymic = $customer->patronymic;
             $user->save();
 
-            // TODO Repository should not do anything besides
+            // TODO 
+            // 1. Repository should not do anything besides
             // interacting with the data storage. 
             // Unfortunately for login functionality laravel requires
             // an ORM object (class for interaction with SQL database).
             // So it's either pass an ORM object outside of the repository 
             // or login a user right here.
+            // 2. Auth::login uses cookie authentication. 
+            // This means that we cannot register customers 
+            // who interact with our application via API requests 
+            // or other interfaces. 
+            // I think it's a good idea to move the login logic 
+            // to the controller because different interfaces
+            // use different login logic.
             Auth::login($user);
             event(new Registered($user));
         }
