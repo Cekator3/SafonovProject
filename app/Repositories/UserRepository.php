@@ -2,14 +2,13 @@
 
 namespace App\Repositories;
 
+use App\DTOs\UserAuthDTO;
 use App\Models\User;
 use App\Enums\UserRole;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\ViewModels\CustomerViewModel;
-use App\Errors\UsersCredentialsUniquenessErrors;
+use App\Errors\UserCredentialsUniquenessErrors;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 /**
@@ -31,11 +30,6 @@ class UserRepository
     private static function isPhoneNumberInUse(string $phoneNumber) : bool
     {
         return User::where('phone_number', $phoneNumber)->exists();
-    }
-
-    private static function generateRememberMeToken() : string
-    {
-        return Str::random(60);
     }
 
     private static function hashPassword(string $password) : string
@@ -64,11 +58,15 @@ class UserRepository
      * Adds new customer's data to the repository (data storage).
      * 
      * @param CustomerViewModel $customer New customer's data.
-     * @param UsersCredentialsUniquenessErrors $errors 
+     * @param UserAuthDTO|null $dataForAuth 
+     * It will contain data required for authentication 
+     * on the interface side (Web, API, etc.) if no errors occur.
+     * @param UserCredentialsUniquenessErrors $errors 
      * An object for storing user's credentials uniqueness errors.
      */
-    public static function 
-    addCustomer(CustomerViewModel $customer, UsersCredentialsUniquenessErrors $errors) : void
+    public static function addCustomer(CustomerViewModel $customer, 
+                                       UserAuthDTO|null &$dataForAuth,
+                                       UserCredentialsUniquenessErrors $errors) : void
     {
         $phoneNumber = static::normalizePhoneNumber($customer->phoneNumber);
         $email = static::normalizeEmail($customer->email);
@@ -94,22 +92,7 @@ class UserRepository
             $user->patronymic = $customer->patronymic;
             $user->save();
 
-            // TODO 
-            // 1. Repository should not do anything besides
-            // interacting with the data storage. 
-            // Unfortunately for login functionality laravel requires
-            // an ORM object (class for interaction with SQL database).
-            // So it's either pass an ORM object outside of the repository 
-            // or login a user right here.
-            // 2. Auth::login uses cookie authentication. 
-            // This means that we cannot register customers 
-            // who interact with our application via API requests 
-            // or other interfaces. 
-            // I think it's a good idea to move the login logic 
-            // to the controller because different interfaces
-            // use different login logic.
-            Auth::login($user);
-            event(new Registered($user));
+            $dataForAuth = new UserAuthDTO($user);
         }
         catch (UniqueConstraintViolationException $e)
         {
@@ -117,6 +100,34 @@ class UserRepository
             $errors->setEmailUniqueness(static::isEmailInUse($email));
             $errors->setPhoneNumberUniqueness(static::isPhoneNumberInUse($phoneNumber));
         }
+    }
+
+    /**
+     * Finds a user by his login and password.
+     * This function meant to be used only for laravel's login functionality.
+     *
+     * @param string $login The user's login.
+     * @param string $password The user's password.
+     * @param UserAuthDTO|null $dataForAuth It will contain data required for 
+     * authentication on the interface side (Web, API, etc.) if no errors occur.
+     */
+    public static function findUserByLoginAndPassword(string $login, 
+                                                      string $password,
+                                                      UserAuthDTO|null &$dataForAuth) : void
+    {
+        $user = User::where('login', $login)->first();
+        if ($user === null)
+            return;
+
+        if (! Hash::check($password, $user->password))
+            return;
+
+        $dataForAuth = new UserAuthDTO($user);
+    }
+
+    private static function generateRememberMeToken() : string
+    {
+        return Str::random(60);
     }
 
     /**

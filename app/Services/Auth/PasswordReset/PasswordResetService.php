@@ -35,18 +35,15 @@ class PasswordResetService
         );
     }
 
-    private static 
-    function resetPassword(array $userCredentials, UserInputErrors $errors) : void
+    private static function resetPassword(array $userCredentials, 
+                                          UserInputErrors $errors) : void
     {
         $status = Password::Reset($userCredentials, function (User $user, string $password) 
         {
             UserRepository::changeUserPassword($user, $password);
-
             event(new PasswordReset($user));
-
-            //login user automatically (but without "remember me" option)
-            // Auth::login($user);
         });
+
         if ($status !== Password::PASSWORD_RESET)
             $errors->addError('status', __($status));
     }

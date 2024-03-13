@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Services\Auth;
+use App\DTOs\UserAuthDTO;
 use App\Errors\UserInputErrors;
-use Illuminate\Support\Facades\Auth;
+use App\Repositories\UserRepository;
 use App\Services\UserCredentialsValidation\FormatValidation\LoginFormatValidationService;
 use App\Services\UserCredentialsValidation\FormatValidation\PasswordFormatValidationService;
 
@@ -11,8 +12,9 @@ use App\Services\UserCredentialsValidation\FormatValidation\PasswordFormatValida
  */
 class LoginService
 {
-    private static function 
-    validateUserCredentials(string $login, string $password, UserInputErrors $errors) : void
+    private static function validateUserCredentials(string $login, 
+                                                    string $password, 
+                                                    UserInputErrors $errors) : void
     {
         LoginFormatValidationService::validateLogin($login, $errors);
         PasswordFormatValidationService::validatePassword($password, $errors);
@@ -23,19 +25,23 @@ class LoginService
      * 
      * @param string $login The user's login.
      * @param string $password The user's password.
-     * @param bool $rememberUser Should the user be remembered.
+     * @param UserAuthDTO|null $dataForAuth It will contain data required for 
+     * authentication on the interface side (Web, API, etc.) if no errors occur.
      * @param UserInputErrors $errors An object for storing validation errors.
-     * @return void
      */
-    public static function 
-    loginUser(string $login, string $password, bool $rememberUser, UserInputErrors $errors) : void
+    public static function loginUser(string $login, 
+                                     string $password, 
+                                     UserAuthDTO|null &$dataForAuth, 
+                                     UserInputErrors $errors) : void
     {
         static::validateUserCredentials($login, $password, $errors);
         
         if ($errors->hasAny())
             return;
 
-        if(! Auth::attempt(['login' => $login, 'password' => $password], $rememberUser))
+        $dataForAuth = null;
+        UserRepository::findUserByLoginAndPassword($login, $password, $dataForAuth);
+        if ($dataForAuth === null)
         {
             $errMessage = __('auth.failed');
             $errors->addError('login', $errMessage);
