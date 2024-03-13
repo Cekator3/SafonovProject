@@ -8,7 +8,7 @@ namespace App\Errors;
  * non-unique user's credentials 
  * that should have been unique.
  */
-class UsersCredentialsUniquenessErrors
+class UserCredentialsUniquenessErrors
 {
     private bool $isLoginInUse;
     private bool $isEmailInUse;
