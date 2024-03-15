@@ -164,6 +164,7 @@ main > *
 
 @media (max-width: 1280px)
 {
+    /* Website header */
     body > header
     {
         width: 85%;
