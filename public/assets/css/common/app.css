@@ -1,0 +1,36 @@
+/* Initial styles */
+
+*
+{
+    box-sizing: border-box;
+}
+
+html
+{
+    height: 100%;
+    font-size: 1em; /* 16px (browser settings) */
+    /* Background */
+    background-color: var(--main-bg-color);
+    background-image: url(/assets/images/main-background.svg);
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--main-text-color);
+}
+
+a
+{
+    /* Removes styles from anchors */
+    text-decoration: none;
+    color: inherit;
+}
+
+body
+{
+    background-color: transparent;
+
+    /* Horizontally centers element */
+    margin: 0 auto;
+
+    /*  */
+    height: 100%;
+}

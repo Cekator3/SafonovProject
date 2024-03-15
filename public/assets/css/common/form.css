@@ -1,0 +1,207 @@
+/* Styles for website's forms */
+
+/* Removes browser's autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus
+{
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: var(--form-input-text-color);
+}
+
+
+.input-field
+{
+    /* Sets gaps between input fields */
+    margin-bottom: 0.6875rem; /* 11px */
+    
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-size: var(--form-input-text-font-size);
+    line-height: 1.28125rem; /* 20.5px */
+
+    /* Prepares element for absolute positioning labels */
+    position: relative;
+}
+
+
+/* Last input field */
+.input-field:last-of-type
+{
+    /* Removes uneccecary gap */
+    margin-bottom: 0;
+}
+
+
+/* Text input field */
+.input-field.text input
+{
+    width: 100%;
+    height: 3.25rem;    /* 52 px */   
+
+    /* Creates space before text */
+    padding-left: var(--form-input-text-first-letter-padding);
+
+    /* Creates borders */
+    border: 0.5px solid var(--form-input-text-border-color); 
+    border-radius: 20px;
+
+    /* Sets colors */
+    background-color: var(--form-input-text-bg-color);
+    color: var(--form-input-text-color);
+
+    /* Sets font */
+    font-weight: 400;
+}
+
+
+/* Text input placeholder */
+.input-field.text label
+{
+    /* Places the placeholder inside the input */
+    position: absolute;
+    top: 1rem;
+    left: var(--form-input-text-first-letter-padding);
+
+    /* Sets colors */
+    color: var(--form-input-placeholder-color);
+
+    /* Sets font */    
+    font-weight: 300;
+
+    /* Sets cursor type */
+    cursor: text;
+
+    /* Sets animation */
+    transform-origin: left center;
+    transition: transform 250ms;
+}
+
+
+/* Moves the placeholder upwards  */
+.input-field.text input:focus ~ label,
+.input-field.text input:valid ~ label
+{
+    transform: translateY(calc(-1 * var(--form-input-text-font-size) - 0.08rem)) scale(0.75);
+}
+
+
+/* Submit button */
+.input-field.submit button
+{
+    width: 100%;
+    height: 2.5rem;     /* 40px */
+
+    /* Sets rounded corners */
+    border-radius: 20px;
+
+    /* Sets font */
+    font-size: 1rem;         /* 16px */
+    line-height: 1.36625rem; /* 21.86px */
+
+    /* Sets colors */
+    color: var(--form-submit-text-color);
+    background-image: var(--form-submit-filled-gradient);
+    background-size: var(--form-submit-filled-bg-size);
+    border: none;
+
+    /* Sets animation speed */
+    transition: 0.5s;
+}
+
+
+.input-field.submit button:hover
+{
+    /* Sets animation direction */
+    background-position: right center;
+
+    /* Sets cursor type */
+    cursor: pointer;
+}
+
+
+/* Pressed submit button */
+.input-field.submit button:active
+{
+    transition: 0.2s;
+    box-shadow: var(--form-submit-box-shadow);
+}
+
+
+/* ---------------------------------*/
+/* Checkbox button with radio style */
+/* ---------------------------------*/
+.input-field.checkbox-radio input
+{
+    /* Removes standard checkbox bullet */
+    /* display: none; */
+    opacity: 0;
+	position: absolute;
+	top: 0;
+
+    /* Sets cursor type */
+    cursor: pointer;
+}
+
+
+/* Checkbox-radio label */
+.input-field.checkbox-radio label
+{
+    /* Centers checkbox bullet and label */
+    display: flex;
+    align-items: baseline;
+
+    /* Sets cursor type */
+    cursor: pointer;
+
+    /* Sets font */
+    font-weight: 300;
+}
+
+
+/* Checkbox-radio bullet */
+.input-field.checkbox-radio label:before
+{
+    /* Creates checkbox bullet */
+    content: '';
+
+    /* Sets margin between checkbox bullet and label */
+    margin-right: 0.5rem;
+
+    /* Sets checkbox bullet size */
+    height: calc(0.5rem - 2px);
+    width: calc(0.5rem - 2px);
+
+    /* Sets checkbox bullet border */
+    border: 1px solid var(--form-checkbox-not-active-color);
+
+    /* Sets bullet's area without background color */
+    background-clip: content-box;
+    padding: 1px;
+
+    /* Rounds checkbox bullet */
+    border-radius: 50%;
+
+    /* Sets animation */
+    transition: background-color .3s ease;
+}
+
+
+/* Label of checked checkbox-radio button */
+.input-field.checkbox-radio input:checked ~ label::before
+{
+    /* Changes colors of button's bullet */
+    background-color: var(--form-checkbox-active-color);
+    border-color: var(--form-checkbox-active-color);
+}
+
+
+/* Label of focused checkbox-radio button */
+.input-field.checkbox-radio input:focus ~ label::before
+{
+    /* Changes colors of button's bullet */
+    border-color: var(--form-checkbox-active-color);
+}

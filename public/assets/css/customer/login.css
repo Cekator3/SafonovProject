@@ -1,0 +1,207 @@
+@font-face {
+    font-family: OpenSans;
+    src: url(/assets/fonts/OpenSans-ExtraBold.woff2) format('woff2'),
+         url(/assets/fonts/OpenSans-ExtraBold.woff) format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+
+/* --------------------- */
+/* Manrope */
+/* --------------------- */
+@font-face {
+    font-family: ManropeVariable;
+    src: url(/assets/fonts/Manrope/Manrope-VariableFont_wght.woff2) format('woff2');
+    font-weight: 1 999;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-bold-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-bold-webfont.woff) format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-regular-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-regular-webfont.woff) format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: Manrope;
+    src: url(/assets/fonts/Manrope/manrope-light-webfont.woff2) format('woff2'),
+         url(/assets/fonts/Manrope/manrope-light-webfont.woff) format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+/* --------------------- */
+
+body
+{
+    /* Creates grid layout */
+    display: grid;
+    grid-template-rows: minmax(min-content, 11%) minmax(min-content, 78%) minmax(0, 11%);
+}
+
+
+main
+{
+    /* Horizontally centers main element */
+    grid-row: 2;
+
+    /* Centers items */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    width: 19%;
+    margin: 0 auto;
+
+    /* Fixes width value if screen is too small */
+    min-width: 360px;
+}
+
+
+main > *
+{
+    width: 100%;
+}
+
+
+/* --------------------- */
+/* Header before login form */
+/* --------------------- */
+.actions
+{
+    /* Removes markers and margins */
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+
+    /* Moves items to the center */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* margin: auto 0; */
+    align-items: center;
+
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 1.875rem; /* 30 px */
+}
+
+
+.action.current
+{
+    /* Adds gradient to text */
+    background-image: var(--auth-action-link-gradient);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+
+/* Actions separator */
+.action.separator
+{
+    /* Creates separator */
+    height: 2.5rem;    /* 40px */
+    border-right: 1px solid var(--secondary-text-color); 
+}
+/* --------------------- */
+
+/* --------------------- */
+/* Login form */
+/* --------------------- */
+/* "Remember me" and "Reset Password" options */
+.input-field.options
+{
+    /* Places the options on opposite sides */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    /* Sets bigger margin between others input fields */
+    margin: 1rem 0;
+}
+
+
+.input-field.options > *
+{
+    /* Centers options horizontally */
+    margin: auto 0;
+}
+/* --------------------- */
+
+/* Forgot password link */
+.forgot-password a
+{
+    text-decoration: underline;
+    color: #afafaf;
+}
+
+
+.forgot-password a:hover
+{
+    color: hsla(0, 0%, 100%, 0.87);
+}
+
+
+
+@media (max-width: 1280px)
+{
+    body > header
+    {
+        width: 85%;
+    }
+}
+
+@media (max-width: 1024px)
+{
+    body > header
+    {
+        width: 95%;
+    }
+}
+
+@media (max-width: 768px)
+{
+    body > header
+    {
+        width: 100%;
+    }
+}
+
+@media (max-width: 375px)
+{
+    main 
+    {
+        min-width: 100%;
+    }
+
+    /* "Remember me" and "Reset Password" options */
+    .input-field.options
+    {
+        justify-content: space-around;
+    }
+
+    /* Header before login form */
+    .actions
+    {
+        justify-content: space-around;
+    }
+}

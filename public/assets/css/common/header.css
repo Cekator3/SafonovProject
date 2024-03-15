@@ -1,0 +1,82 @@
+/* Styles for website header */
+
+/* Logo and navigation */
+body > header
+{
+    /* Displays logo and nav on opposite sides */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+
+    width: 65%;
+    /* Centers horizontally and aligns header to the bottom*/
+    margin: auto;
+    margin-bottom: 0;
+}
+
+/* Logo */
+.company-logo
+{
+    /* Remove default styles */
+    text-decoration: none;
+    color: unset;
+    /* Configures font */
+    font-weight: 800;
+    font-size: var(--logo-fontsize);
+}
+
+/* Logo (3D) */
+.company-logo-3d
+{
+    /* Displays "3D" text vertical */
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    /* Sets font */
+    font-family: Arial, Helvetica, sans-serif;
+    /* Adding gradient to text */
+    background-image: var(--logo-gradient-fallback);
+    background-image: var(--logo-gradient);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+    /* Remove spacing between 3D and text in logo */
+    margin-right: -15px;
+}
+
+/* Logo (text) */
+.company-logo-text
+{
+    /* Sets font */
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+}
+
+/* navigation */
+body > header > nav
+{
+    /* Removes markers and margins */
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    /* Moves items to the right */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: end;
+}
+
+/* --------------------- */
+/* Gap between nav items */
+/* --------------------- */
+body > header > nav li
+{
+    padding-right: 34px;
+}
+
+body > header > nav:last-child
+{
+    padding-right: 0;
+}
+/* --------------------- */
