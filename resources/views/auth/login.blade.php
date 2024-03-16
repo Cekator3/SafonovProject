@@ -45,7 +45,7 @@
         <form action="{{ route('login') }}" method="post">
             @csrf
 
-            <div class="input-field text">
+            <div class="input-field text @error('login') has-errors @enderror">
                 <input type="text" 
                        id="login" 
                        name="login" 
@@ -62,7 +62,7 @@
                 </ul>
             </div>
 
-            <div class="input-field text">
+            <div class="input-field text @error('password') has-errors @enderror">
                 <input type="password" 
                        id="password"
                        name="password" 

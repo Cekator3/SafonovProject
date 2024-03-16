@@ -67,6 +67,16 @@ textarea:-webkit-autofill:focus
 
     /* Sets font */
     font-weight: 400;
+
+    /* Removes outline that is appearing on focus */
+    outline: none;
+}
+
+
+/* Sets outline that is appearing on focus */
+.input-field.text input:focus
+{
+    border-width: 2px;
 }
 
 
@@ -106,6 +116,14 @@ textarea:-webkit-autofill:focus
 .input-field.text input:valid ~ label
 {
     transform: translateY(calc(-1 * var(--form-input-text-font-size) - 0.08rem)) scale(0.75);
+}
+
+
+/* Text input field with errors */
+.input-field.text.has-errors input,
+.input-field.text.has-errors input:focus
+{
+    border-color: var(--form-input-error-text-color);
 }
 
 
