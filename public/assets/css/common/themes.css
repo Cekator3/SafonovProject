@@ -8,9 +8,6 @@
     --secondary-text-color: #828282;
 
     /* logo */
-    /* --logo-fontsize: 3rem;   48px 
-    --logo-gradient: conic-gradient(from 180deg at 51.84% 50.76%, #FFADAC 0deg, #5A6AFF 102.75deg, #FA4CB2 234deg, #A62AFB 360deg);
-    --logo-gradient-fallback: linear-gradient(90.26deg, #546FFF 2.38%, #FF59AD 31.3%, #E946C1 63.78%, #FFA7AB 99.81%); */
     --logo-image: url('/assets/images/logo.svg');
 
     /* Auth form */
@@ -24,6 +21,7 @@
     --form-input-text-color: white;
     --form-input-text-border-color: white;
     --form-input-text-bg-color: #0C061F;
+    --form-input-error-text-color: rgb(250, 119, 124);
 
     /* Form input margins */
     --form-input-text-first-letter-padding: 1rem;

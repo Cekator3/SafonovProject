@@ -22,8 +22,10 @@ body > header
     /* Sets logo (svg) */
     background-image: var(--logo-image);
     background-repeat: no-repeat;
-    background-position: 23% bottom;
     background-size: contain;
+
+    /* Moves logo to left bottom edge */
+    background-position: left bottom;
 
     /* Moves logo to the bottom of header */
     position: relative;
@@ -46,18 +48,38 @@ body > header > nav
     /* Moves nav with the logo (to the bottom of header) */
     position: relative;
     top: 34%;
+
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;        /* 16 px */
+    line-height: 1.375rem;  /* 21.86px */
 }
 
 /* --------------------- */
-/* Gap between nav items */
+/* Nav items */
 /* --------------------- */
 body > header > nav li
 {
+    /* Sets gap between nav items */
     padding-right: 34px;
+
+    /* Disables text wrapping */
+    text-wrap: nowrap;
 }
 
 body > header > nav:last-child
 {
+    /* Removes uneccecary gap */
     padding-right: 0;
 }
 /* --------------------- */
+
+@media (max-width: 1024px)
+{
+    .company-logo
+    {
+        /* Moves logo to bottom left half */
+        background-position: 23% bottom;
+    }
+}

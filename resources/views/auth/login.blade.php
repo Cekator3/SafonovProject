@@ -44,15 +44,6 @@
 
         <form action="{{ route('login') }}" method="post">
             @csrf
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <div class="input-field text">
                 <input type="text" 
@@ -64,6 +55,11 @@
                        autocomplete="username"
                 >
                 <label for="login">Логин</label>
+                <ul class="errors">
+                    @error('login')
+                        <li>{{ $message }}</li>
+                    @enderror
+                </ul>
             </div>
 
             <div class="input-field text">
@@ -74,6 +70,11 @@
                        autocomplete="current-password"
                 >
                 <label for="password">Пароль</label>
+                <ul class="errors">
+                    @error('password')
+                        <li>{{ $message }}</li>
+                    @enderror
+                </ul>
             </div>
 
             <div class="input-field options">

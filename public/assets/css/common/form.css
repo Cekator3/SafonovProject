@@ -36,6 +36,18 @@ textarea:-webkit-autofill:focus
 }
 
 
+/* Validation errors of input field */
+.input-field .errors
+{
+    color: var(--form-input-error-text-color);    
+
+    /* Removes markers and margins (ul) */
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
 /* Text input field */
 .input-field.text input
 {
@@ -78,6 +90,14 @@ textarea:-webkit-autofill:focus
     /* Sets animation */
     transform-origin: left center;
     transition: transform 250ms;
+
+    /* Disables text selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 

@@ -29,8 +29,15 @@ body
     background-color: transparent;
 
     /* Horizontally centers element */
+    width: 67%;
     margin: 0 auto;
 
-    /*  */
     height: 100%;
+}
+
+@media (max-width: 1024px)
+{
+    body{
+        width: unset;
+    }
 }
