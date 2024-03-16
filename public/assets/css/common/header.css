@@ -7,51 +7,27 @@ body > header
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
-    align-items: baseline;
 
-    width: 65%;
-    /* Centers horizontally and aligns header to the bottom*/
-    margin: auto;
-    margin-bottom: 0;
+    /* Places logo and nav on the same text line */
+    align-items: baseline;
 }
 
 /* Logo */
 .company-logo
 {
-    /* Remove default styles */
-    text-decoration: none;
-    color: unset;
-    /* Configures font */
-    font-weight: 800;
-    font-size: var(--logo-fontsize);
-}
+    /* Sets size of logo */
+    height: 66%;
+    width: max(19.5%, 500px);
 
-/* Logo (3D) */
-.company-logo-3d
-{
-    /* Displays "3D" text vertical */
-    writing-mode: vertical-rl;
-    text-orientation: sideways;
-    /* Sets font */
-    font-family: Arial, Helvetica, sans-serif;
-    /* Adding gradient to text */
-    background-image: var(--logo-gradient-fallback);
-    background-image: var(--logo-gradient);
-    background-clip: text;
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-    -moz-text-fill-color: transparent;
-    /* Remove spacing between 3D and text in logo */
-    margin-right: -15px;
-}
+    /* Sets logo (svg) */
+    background-image: var(--logo-image);
+    background-repeat: no-repeat;
+    background-position: 23% bottom;
+    background-size: contain;
 
-/* Logo (text) */
-.company-logo-text
-{
-    /* Sets font */
-    font-family: OpenSans, Arial, Helvetica, sans-serif;
+    /* Moves logo to the bottom of header */
+    position: relative;
+    top: 34%;
 }
 
 /* navigation */
@@ -61,10 +37,15 @@ body > header > nav
     list-style-type: none;
     padding-left: 0;
     margin-left: 0;
-    /* Moves items to the right */
+
+    /* Evenly distributes nav items */
     display: flex;
     flex-flow: row nowrap;
-    justify-content: end;
+    justify-content: space-between;
+
+    /* Moves nav with the logo (to the bottom of header) */
+    position: relative;
+    top: 34%;
 }
 
 /* --------------------- */

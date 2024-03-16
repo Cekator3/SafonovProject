@@ -11,7 +11,7 @@ html
     font-size: 1em; /* 16px (browser settings) */
     /* Background */
     background-color: var(--main-bg-color);
-    background-image: url(/assets/images/main-background.svg);
+    background-image: var(--main-bg-image);
     background-attachment: fixed;
     background-size: cover;
     color: var(--main-text-color);

@@ -22,18 +22,15 @@
 <body>
     <header>
         {{-- logo --}}
-        <a class="company-logo" href="{{ route('home') }}">
-            <span class="company-logo-3d">3D</span>
-            <span class="company-logo-text">models</span>
-        </a>
+        <a class="company-logo" href="{{ route('home') }}"></a>
 
-        {{-- <nav>
+        <nav>
             <li>lol</li>
             <li>lol</li>
             <li>lol</li>
             <li>lol</li>
             <li>lol</li>
-        </nav> --}}
+        </nav>
     </header>
 
     <main>
