@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  */
 class HumanSurnameFormatValidationService
 {
-    private static function validateHumanSurnameLength(string $surname, UserInputErrors $errors) : void
+    private static function validateLength(string $surname, UserInputErrors $errors) : void
     {
         $len = mb_strlen($surname, 'UTF-8');
         if ($len == 0)
@@ -37,6 +37,6 @@ class HumanSurnameFormatValidationService
      */
     public static function validateSurname(string $surname, UserInputErrors $errors) : void
     {
-        static::validateHumanSurnameLength($surname, $errors);
+        static::validateLength($surname, $errors);
     }
 }

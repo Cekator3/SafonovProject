@@ -35,13 +35,14 @@ class CustomerRegistrationController extends Controller
         $user->surname      = $request->string('surname', '');
         $user->patronymic   = $request->string('patronymic', '');
         $user->password     = $request->string('password', '');
-        $user->password_confirmation = $request->string('password_confirmation', '');
+        $user->passwordConfirmation = $request->string('password_confirmation', '');
+        $user->rememberUser = $request->boolean('remember_me', false);
         return $user;
     }
 
-    private function loginUserViaCookies(UserAuthDTO $dataForAuth) : void
+    private function loginUserViaCookies(UserAuthDTO $dataForAuth, bool $rememberUser) : void
     {
-        Auth::login($dataForAuth->getObjectForCookieAuthentication());
+        Auth::login($dataForAuth->getObjectForCookieAuthentication(), $rememberUser);
         event(new Registered($dataForAuth->getObjectForCookieAuthentication()));
     }
 
@@ -64,7 +65,7 @@ class CustomerRegistrationController extends Controller
 
         if ($dataForAuth === null)
             throw new Exception("Authentication data does not exist, but no errors have occurred");
-        $this->loginUserViaCookies($dataForAuth);
+        $this->loginUserViaCookies($dataForAuth, $newUser->rememberUser);
 
         return redirect(RouteServiceProvider::HOME);
     }

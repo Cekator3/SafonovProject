@@ -17,5 +17,6 @@ class CustomerViewModel
     public string $surname = '';
     public string $patronymic = '';
     public string $password = '';
-    public string $password_confirmation = '';
+    public string $passwordConfirmation = '';
+    public bool $rememberUser = false;
 }

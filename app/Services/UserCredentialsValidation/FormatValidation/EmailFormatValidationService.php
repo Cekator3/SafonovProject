@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Config;
  */
 class EmailFormatValidationService
 {
-    private static function validateEmailLength(string $email, UserInputErrors $errors) : void
+    private static function validateLength(string $email, UserInputErrors $errors) : void
     {
         $len = strlen($email);
         if ($len == 0) 
@@ -32,14 +32,14 @@ class EmailFormatValidationService
         }
     }
 
-    private static function isEmailValid(string $email) : bool
+    private static function isFormatValid(string $email) : bool
     {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    private static function validateEmailFormat(string $email, UserInputErrors $errors) : void
+    private static function validateFormat(string $email, UserInputErrors $errors) : void
     {
-        if (static::isEmailValid($email))
+        if (static::isFormatValid($email))
             return;
         $errMessage = __('validation.email', ['attribute' => 'email']);
         $errors->addError('email', $errMessage);
@@ -53,9 +53,9 @@ class EmailFormatValidationService
      */
     public static function validateEmail(string $email, UserInputErrors $errors) : void
     {
-        static::validateEmailLength($email, $errors);
+        static::validateLength($email, $errors);
         if ($errors->hasAnyForInput('email'))
             return;
-        static::validateEmailFormat($email, $errors);
+        static::validateFormat($email, $errors);
     }
 }

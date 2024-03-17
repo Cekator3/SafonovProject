@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  */
 class PasswordFormatValidationService
 {
-    private static function validatePasswordLength(string $password, UserInputErrors &$errors) : void
+    private static function validateLength(string $password, UserInputErrors &$errors) : void
     {
         $len = mb_strlen($password, 'UTF-8');
         if ($len == 0)
@@ -50,7 +50,7 @@ class PasswordFormatValidationService
                                             string $password_confirmation = '', 
                                             bool $isPasswordConfirmationRequired = false) : void
     {
-        static::validatePasswordLength($password, $errors);
+        static::validateLength($password, $errors);
         if ($errors->hasAnyForInput('password'))
             return;
         if ($isPasswordConfirmationRequired)

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Config;
  */
 class PhoneNumberFormatValidationService
 {
-    private static function validatePhoneNumberLength(string $phoneNumber, UserInputErrors $errors) : void
+    private static function validateLength(string $phoneNumber, UserInputErrors $errors) : void
     {
         $len = strlen($phoneNumber);
         if ($len === 0)
@@ -33,15 +33,15 @@ class PhoneNumberFormatValidationService
         }
     }
 
-    private static function isPhoneNumberValid(string $phoneNumber) : bool
+    private static function isFormatValid(string $phoneNumber) : bool
     {
         return PhoneNumberUtil::getInstance()->isPossibleNumber($phoneNumber, 'RU');
     }
 
-    private static function validatePhoneNumberFormat(string $phoneNumber, 
+    private static function validateFormat(string $phoneNumber, 
                                                       UserInputErrors $errors) : void
     {
-        if (static::isPhoneNumberValid($phoneNumber)) 
+        if (static::isFormatValid($phoneNumber)) 
             return;
         $errMessage = __('validation.phone_number', ['attribute' => 'phone_number']);
         $errors->addError('phone_number', $errMessage);
@@ -55,9 +55,9 @@ class PhoneNumberFormatValidationService
      */
     public static function validatePhoneNumber(string $phoneNumber, UserInputErrors $errors) : void
     {
-        static::validatePhoneNumberLength($phoneNumber, $errors);
+        static::validateLength($phoneNumber, $errors);
         if ($errors->hasAnyForInput('phone_number'))
             return;
-        static::validatePhoneNumberFormat($phoneNumber, $errors);
+        static::validateFormat($phoneNumber, $errors);
     }
 }

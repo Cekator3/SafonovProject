@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  */
 class HumanPatronymicFormatValidationService
 {
-    private static function validateHumanPatronymicLength(string $patronymic, UserInputErrors $errors)
+    private static function validateLength(string $patronymic, UserInputErrors $errors)
     {
         $len = mb_strlen($patronymic, 'UTF-8');
         $maxLen = Config::get('users.credentials.max_human_patronymic_length');
@@ -31,6 +31,6 @@ class HumanPatronymicFormatValidationService
      */
     public static function validatePatronymic(string $patronymic, UserInputErrors $errors) : void
     {
-        static::validateHumanPatronymicLength($patronymic, $errors);
+        static::validateLength($patronymic, $errors);
     }
 }

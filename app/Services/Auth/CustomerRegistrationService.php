@@ -31,7 +31,7 @@ class CustomerRegistrationService
         HumanSurnameFormatValidationService::validateSurname($user->surname, $errors);
         PasswordFormatValidationService::validatePassword($user->password, 
                                                           $errors, 
-                                                          $user->password_confirmation, 
+                                                          $user->passwordConfirmation, 
                                                           true);
     }
 

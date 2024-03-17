@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  */
 class HumanNameFormatValidationService
 {
-    private static function validateHumanNameLength(string $name, UserInputErrors $errors) : void
+    private static function validateLength(string $name, UserInputErrors $errors) : void
     {
         $len = mb_strlen($name, 'UTF-8');
         $maxLen = Config::get('users.credentials.max_human_name_length');
@@ -31,6 +31,6 @@ class HumanNameFormatValidationService
      */
     public static function validateName(string $name, UserInputErrors $errors) : void
     {
-        static::validateHumanNameLength($name, $errors);
+        static::validateLength($name, $errors);
     }
 }

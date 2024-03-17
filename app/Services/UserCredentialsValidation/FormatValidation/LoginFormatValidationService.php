@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
  */
 class LoginFormatValidationService
 {
-    private static function validateLoginLength(string $login, UserInputErrors $errors) : void
+    private static function validateLength(string $login, UserInputErrors $errors) : void
     {
         $len = mb_strlen($login, 'UTF-8');
         if ($len === 0) 
@@ -37,6 +37,6 @@ class LoginFormatValidationService
      */
     public static function validateLogin(string $login, UserInputErrors $errors) : void
     {
-        static::validateLoginLength($login, $errors);
+        static::validateLength($login, $errors);
     }
 }
