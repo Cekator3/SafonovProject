@@ -1,52 +1,84 @@
-<!DOCTYPE html>
+@extends('layouts.guest')    
 
-<body>
-    <form action="{{ route('register') }}" method="post">
-        @csrf
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+@section('title', 'Зарегистрироваться')
 
-        <div>
-            <input type="text" name="login" value='{{ old('login') }}' placeholder="login">
-        </div>
+@section('styles')
+<link href="/assets/css/customer/auth/common.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/customer/auth/actions.css" rel="stylesheet" type="text/css">
+@endsection
 
-        <div>
-            <input type="text" name="email" value='{{ old('email') }}' placeholder="email">
-        </div>
+@section('content')
+<header>
+    <ul class="actions">
+        <li class="action another"><a href="{{ route('login') }}">Вход</a></li>
+        <li class="action separator"></li>
+        <li class="action current">Регистрация</li>
+    </ul>
+</header>
 
-        <div>
-            <input type="text" name="phone_number" value='{{ old('phone_number') }}' placeholder="phone_number">
-        </div>
+<form action="{{ route('register') }}" method="post">
+    @csrf
 
-        <div>
-            <input type="text" name="name" value='{{ old('name') }}' placeholder="name">
-        </div>
+    <x-forms.inputs.text :type=" 'text' "
+                         :name=" 'login' " 
+                         :placeholder=" 'Логин' " 
+                         required="" 
+                         autofocus="" 
+                         autocomplete="username" 
+    />
 
-        <div>
-            <input type="text" name="surname" value='{{ old('surname') }}' placeholder="surname">
-        </div>
+    <x-forms.inputs.text :type=" 'email' "
+                         :name=" 'email' " 
+                         :placeholder=" 'Почта' " 
+                         required="" 
+                         autocomplete="email" 
+    />
 
-        <div>
-            <input type="text" name="patronymic" value='{{ old('patronymic') }}' placeholder="patronymic">
-        </div>
+    <x-forms.inputs.text :type=" 'tel' "
+                         :name=" 'phone_number' " 
+                         :placeholder=" 'Телефон' " 
+                         required="" 
+                         autocomplete="tel" 
+    />
 
-        <div>
-            <input type="password" name="password" placeholder="password">
-        </div>
+    <x-forms.inputs.text :type=" 'text' "
+                         :name=" 'name' " 
+                         :placeholder=" 'Имя' " 
+                         autocomplete="given-name" 
+    />
 
-        <div>
-            <input type="password" name="password_confirmation" placeholder="password_confirmation">
-        </div>
+    <x-forms.inputs.text :type=" 'text' "
+                         :name=" 'surname' " 
+                         :placeholder=" 'Фамилия' " 
+                         required=""
+                         autocomplete="family-name" 
+    />
 
-        <div>
-            <input type="submit" value="1">
-        </div>
-    </form>
-</body>
+    <x-forms.inputs.text :type=" 'text' "
+                         :name=" 'patronymic' " 
+                         :placeholder=" 'Отчество' " 
+                         autocomplete="additional-name" 
+    />
+
+    <x-forms.inputs.text :type=" 'password' "
+                         :name=" 'password' " 
+                         :placeholder=" 'Пароль' "
+                          required=""
+                          autocomplete="current-password"
+    />
+
+    <x-forms.inputs.text :type=" 'password' "
+                         :name=" 'password_confirmation' " 
+                         :placeholder=" 'Подтверждение пароля' "
+                          required=""
+                          autocomplete="current-password"
+    />
+
+    {{-- Remember me --}}
+    <x-forms.inputs.checkbox-radio :name=" 'remember_me' " 
+                                    :placeholder=" 'Запомнить меня' " 
+    />
+
+    <x-forms.submit :placeholder=" 'Войти' " />
+</form>
+@endsection

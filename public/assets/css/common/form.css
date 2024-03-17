@@ -113,7 +113,7 @@ textarea:-webkit-autofill:focus
 
 /* Moves the placeholder upwards  */
 .input-field.text input:focus ~ label,
-.input-field.text input:valid ~ label
+.input-field.text input:not(:placeholder-shown) ~ label
 {
     transform: translateY(calc(-1 * var(--form-input-text-font-size) - 0.08rem)) scale(0.75);
 }
