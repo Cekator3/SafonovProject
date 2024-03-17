@@ -1,0 +1,56 @@
+/* Styles for links to login and registration page */
+
+/* --------------------- */
+/* Header before login form */
+/* --------------------- */
+.actions
+{
+    /* Removes markers and margins */
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+
+    /* Moves items to the center */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    /* margin: auto 0; */
+    align-items: center;
+
+    /* Sets font */
+    font-family: ManropeVariable, Manrope, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 1.875rem; /* 30 px */
+}
+
+
+.action.current
+{
+    /* Adds gradient to text */
+    background-image: var(--auth-action-link-gradient);
+    background-clip: text;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
+
+/* Actions separator */
+.action.separator
+{
+    /* Creates separator */
+    height: 2.5rem;    /* 40px */
+    border-right: 1px solid var(--secondary-text-color); 
+}
+/* --------------------- */
+
+@media (max-width: 375px)
+{
+    /* Header before login form */
+    .actions
+    {
+        justify-content: space-around;
+    }
+}

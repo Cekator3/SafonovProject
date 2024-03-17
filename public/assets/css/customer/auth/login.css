@@ -1,0 +1,47 @@
+/* --------------------- */
+/* Login form */
+/* --------------------- */
+/* "Remember me" and "Reset Password" options */
+.input-field.options
+{
+    /* Places the options on opposite sides */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    /* Sets bigger margin between others input fields */
+    margin: 1rem 0;
+}
+
+
+.input-field.options > *
+{
+    /* Centers options horizontally */
+    margin: auto 0;
+}
+/* --------------------- */
+
+/* Forgot password link */
+.forgot-password a
+{
+    text-decoration: underline;
+    color: #afafaf;
+}
+
+
+.forgot-password a:hover
+{
+    color: hsla(0, 0%, 100%, 0.87);
+}
+/* --------------------- */
+
+
+@media (max-width: 375px)
+{
+    /* "Remember me" and "Reset Password" options */
+    .input-field.options
+    {
+        justify-content: space-around;
+    }
+
+}

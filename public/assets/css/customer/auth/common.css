@@ -1,0 +1,52 @@
+/* Main styles that are used for all auth pages */
+
+@font-face {
+    font-family: OpenSans;
+    src: url(/assets/fonts/OpenSans-ExtraBold.woff2) format('woff2'),
+         url(/assets/fonts/OpenSans-ExtraBold.woff) format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+
+body
+{
+    /* Creates grid layout */
+    display: grid;
+    grid-template-rows: minmax(min-content, 11%) minmax(min-content, 78%) minmax(0, 11%);
+}
+
+
+main
+{
+    /* Horizontally centers main element */
+    margin: 0 auto;
+
+    /* Centers main element at the center of the screen */
+    grid-row: 2;
+
+    /* Centers items */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+
+    /* es width value if screen is too small */
+    min-width: 360px;
+}
+
+
+main > *
+{
+    width: 100%;
+}
+
+
+@media (max-width: 375px)
+{
+    main 
+    {
+        min-width: 100%;
+    }
+}
