@@ -1,79 +1,51 @@
-<!DOCTYPE html>
+@extends('layouts.guest')    
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('title', 'Войти')
 
-    <title>Laravel</title>
+@section('styles')
+<link href="/assets/css/customer/auth.css" rel="stylesheet" type="text/css">
+@endsection
 
-    <!-- Fonts -->
+@section('content')
+<header>
+    <ul class="actions">
+        <li class="action current">Вход</li>
+        <li class="action separator"></li>
+        <li class="action another"><a href="{{ route('register') }}">Регистрация</a></li>
+    </ul>
+</header>
 
-    <!-- Styles -->
-    {{-- Common styles --}}
-    <link href="/assets/css/common/normalize.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/common/themes.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/common/app.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/common/header.css" rel="stylesheet" type="text/css">
-    <link href="/assets/css/common/form.css" rel="stylesheet" type="text/css">
-    {{-- Other styles --}}
-    <link href="/assets/css/customer/login.css" rel="stylesheet" type="text/css">
-</head>
+<form action="{{ route('login') }}" method="post">
+    @csrf
 
-<body>
-    <header>
-        {{-- logo --}}
-        <a class="company-logo" href="{{ route('home') }}"></a>
+    {{-- Login --}}
+    <x-forms.inputs.text :name=" 'login' " 
+                            :placeholder=" 'Логин' " 
+                            required="" 
+                            autofocus="" 
+                            autocomplete="username" 
+    />
 
-        <nav>
-            <li>lol</li>
-            <li>lol</li>
-            <li>lol</li>
-            <li>lol</li>
-            <li>lol</li>
-        </nav>
-    </header>
+    {{-- Password --}}
+    <x-forms.inputs.text :name=" 'password' " 
+                            :placeholder=" 'Пароль' "
+                            required=""
+                            autocomplete="current-password"
+    />
 
-    <main>
-        <header>
-            <ul class="actions">
-                <li class="action current">Вход</li>
-                <li class="action separator"></li>
-                <li class="action another"><a href="{{ route('register') }}">Регистрация</a></li>
-            </ul>
-        </header>
+    <div class="input-field options">
+        {{-- Remember me --}}
+        <x-forms.inputs.checkbox-radio :name=" 'remember_me' " 
+                                        :placeholder=" 'Запомнить меня' " 
+        />
 
-        <form action="{{ route('login') }}" method="post">
-            @csrf
+        {{-- Forgot password --}}
+        <div class="forgot-password">
+            <a href="{{ route('password.request') }}">Восстановить пароль</a>
+        </div>
+    </div>
 
-            {{-- Login --}}
-            <x-forms.inputs.text :name=" 'login' " 
-                                 :placeholder=" 'Логин' " 
-                                 required="" 
-                                 autofocus="" 
-                                 autocomplete="username" 
-            />
-
-            {{-- Password --}}
-            <x-forms.inputs.text :name=" 'password' " 
-                                 :placeholder=" 'Пароль' "
-                                 required=""
-                                 autocomplete="current-password"
-            />
-
-            <div class="input-field options">
-                {{-- Remember me --}}
-                <x-forms.inputs.checkbox-radio :name=" 'remember_me' " 
-                                               :placeholder=" 'Запомнить меня' " 
-                />
-
-                {{-- Forgot password --}}
-                <div class="forgot-password">
-                    <a href="{{ route('password.request') }}">Восстановить пароль</a>
-                </div>
-            </div>
-
-            {{-- Submit --}}
-            <x-forms.submit :placeholder=" 'Войти' " />
-        </form>
-    </main>
-</body>
+    {{-- Submit --}}
+    <x-forms.submit :placeholder=" 'Войти' " />
+</form>
+@endsection
