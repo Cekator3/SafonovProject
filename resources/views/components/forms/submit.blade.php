@@ -1,4 +1,4 @@
-{{--  --}}
+{{-- Submit button --}}
 
 @props(['placeholder'])
 

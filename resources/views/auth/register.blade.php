@@ -19,6 +19,7 @@
 <form action="{{ route('register') }}" method="post">
     @csrf
 
+    {{-- Login --}}
     <x-forms.inputs.text :type=" 'text' "
                          :name=" 'login' " 
                          :placeholder=" 'Логин' " 
@@ -27,6 +28,7 @@
                          autocomplete="username" 
     />
 
+    {{-- Email --}}
     <x-forms.inputs.text :type=" 'email' "
                          :name=" 'email' " 
                          :placeholder=" 'Почта' " 
@@ -34,6 +36,7 @@
                          autocomplete="email" 
     />
 
+    {{-- Phone number --}}
     <x-forms.inputs.text :type=" 'tel' "
                          :name=" 'phone_number' " 
                          :placeholder=" 'Телефон' " 
@@ -41,12 +44,14 @@
                          autocomplete="tel" 
     />
 
+    {{-- Name --}}
     <x-forms.inputs.text :type=" 'text' "
                          :name=" 'name' " 
                          :placeholder=" 'Имя' " 
                          autocomplete="given-name" 
     />
 
+    {{-- Surname --}}
     <x-forms.inputs.text :type=" 'text' "
                          :name=" 'surname' " 
                          :placeholder=" 'Фамилия' " 
@@ -54,12 +59,14 @@
                          autocomplete="family-name" 
     />
 
+    {{-- Patronymic --}}
     <x-forms.inputs.text :type=" 'text' "
                          :name=" 'patronymic' " 
                          :placeholder=" 'Отчество' " 
                          autocomplete="additional-name" 
     />
 
+    {{-- Password --}}
     <x-forms.inputs.text :type=" 'password' "
                          :name=" 'password' " 
                          :placeholder=" 'Пароль' "
@@ -67,6 +74,7 @@
                           autocomplete="current-password"
     />
 
+    {{-- Password confirmation --}}
     <x-forms.inputs.text :type=" 'password' "
                          :name=" 'password_confirmation' " 
                          :placeholder=" 'Подтверждение пароля' "
@@ -79,6 +87,7 @@
                                     :placeholder=" 'Запомнить меня' " 
     />
 
+    {{-- Submit --}}
     <x-forms.submit :placeholder=" 'Войти' " />
 </form>
 @endsection
