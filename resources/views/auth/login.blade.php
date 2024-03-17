@@ -48,15 +48,15 @@
             {{-- Login --}}
             <x-forms.inputs.text :name=" 'login' " 
                                  :placeholder=" 'Логин' " 
-                                 required 
-                                 autofocus 
+                                 required="" 
+                                 autofocus="" 
                                  autocomplete="username" 
             />
 
             {{-- Password --}}
             <x-forms.inputs.text :name=" 'password' " 
                                  :placeholder=" 'Пароль' "
-                                 required
+                                 required=""
                                  autocomplete="current-password"
             />
 
