@@ -12,8 +12,8 @@
     >
     <label for="{{ $name }}">{{ $placeholder }}</label>
     <ul class="errors">
-        @error($name)
+        @foreach ($errors->get($name) as $message)
             <li>{{ $message }}</li>
-        @enderror
+        @endforeach
     </ul>
 </div>

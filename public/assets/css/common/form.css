@@ -44,7 +44,10 @@ textarea:-webkit-autofill:focus
     /* Removes markers and margins (ul) */
     list-style-type: none;
     padding-left: 0;
-    margin-left: 0;
+
+    /* Justifies errors by placeholder */
+    margin-left: var(--form-input-text-first-letter-padding);
+    margin-right: var(--form-input-text-first-letter-padding);
 }
 
 
