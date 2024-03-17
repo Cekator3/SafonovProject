@@ -45,56 +45,35 @@
         <form action="{{ route('login') }}" method="post">
             @csrf
 
-            <div class="input-field text @error('login') has-errors @enderror">
-                <input type="text" 
-                       id="login" 
-                       name="login" 
-                       value='{{ old('login') }}' 
-                       required 
-                       autofocus 
-                       autocomplete="username"
-                >
-                <label for="login">Логин</label>
-                <ul class="errors">
-                    @error('login')
-                        <li>{{ $message }}</li>
-                    @enderror
-                </ul>
-            </div>
+            {{-- Login --}}
+            <x-forms.inputs.text :name=" 'login' " 
+                                 :placeholder=" 'Логин' " 
+                                 required 
+                                 autofocus 
+                                 autocomplete="username" 
+            />
 
-            <div class="input-field text @error('password') has-errors @enderror">
-                <input type="password" 
-                       id="password"
-                       name="password" 
-                       required 
-                       autocomplete="current-password"
-                >
-                <label for="password">Пароль</label>
-                <ul class="errors">
-                    @error('password')
-                        <li>{{ $message }}</li>
-                    @enderror
-                </ul>
-            </div>
+            {{-- Password --}}
+            <x-forms.inputs.text :name=" 'password' " 
+                                 :placeholder=" 'Пароль' "
+                                 required
+                                 autocomplete="current-password"
+            />
 
             <div class="input-field options">
                 {{-- Remember me --}}
-                <div class="input-field checkbox-radio">
-                    <input type="checkbox" 
-                           name="remember_me" 
-                           id="remember_me" 
-                           @checked(old('remember_me'))
-                    >
-                    <label for="remember_me">Запомнить меня</label>
-                </div>
+                <x-forms.inputs.checkbox-radio :name=" 'remember_me' " 
+                                               :placeholder=" 'Запомнить меня' " 
+                />
+
                 {{-- Forgot password --}}
                 <div class="forgot-password">
                     <a href="{{ route('password.request') }}">Восстановить пароль</a>
                 </div>
             </div>
-            <div class="input-field submit">
-                <button type="submit">Войти</button>
-            </div>
+
+            {{-- Submit --}}
+            <x-forms.submit :placeholder=" 'Войти' " />
         </form>
     </main>
 </body>
